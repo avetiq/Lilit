@@ -1,0 +1,20 @@
+.active{
+    color: white !important;
+    font-weight: 800;
+}
+
+.main {
+    display: flex;
+    justify-content: center !important;
+}
+
+.link {
+    margin-right: 60px;
+    font-size: 22px;
+    color: wheat;
+}
+
+.link:hover {
+    text-decoration: none;
+    color: white;
+}
