@@ -12,7 +12,8 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import {Link} from 'react-router-dom';
-import idGenerator from '../../../helpers/idGenerator';  
+import idGenerator from '../../../helpers/idGenerator';
+import dateFormater from '../../../helpers/dateFormater';  
 
 function Search() {
 
@@ -23,11 +24,11 @@ function Search() {
   const [dateFrom, setDateFrom] = React.useState(null);
   const [dateTo, setDateTo] = React.useState(null);
   const [allInputsEmpty, setAllInputsEmpty] = React.useState(true);
+  const [hasError, setHasError] = React.useState(false);
 
   const bedArray = [1,2,3,4,5];
 
   const handleDateChange = (date, isFirst) => {
-    console.log(date);
     if(isFirst){
       setDateFrom(date);
     }else{
@@ -36,12 +37,28 @@ function Search() {
   };
 
   React.useEffect(() => {
-    if((hotel + view + district).trim() === ""){
+    if(view.trim() === "" && hotel.trim() === ""){
       setAllInputsEmpty(true);
     }else{
       setAllInputsEmpty(false);
     }
-  }, [hotel, view, district]);
+
+    if(hotel.trim() !== "" && dateFrom === null){
+        setHasError(true);
+    }else{
+      setHasError(false);
+    }
+
+    if(dateFrom !== null){
+      setDateFrom(dateFormater(dateFrom))
+    }
+
+    if(dateTo !== null){
+      setDateTo(dateFormater(dateTo))
+    }
+    
+    
+  }, [hotel, view, dateFrom, dateTo]);
 
   const handleChangeName = (event) => {
     const insertedText = event.target.value.trim();
@@ -63,16 +80,7 @@ function Search() {
     
   };
 
-  const handleSubmit = () => {
-    const mySearchParams = {
-      hotel,
-      view,
-      district
-    }
-    console.log(`from search page console ${mySearchParams}`);
-  };
-
-        return (
+      return (
         <div className={classes.root}>
         
             <div className={classes.d2}>
@@ -91,7 +99,7 @@ function Search() {
               label='Հյուրանոցի անվանում'
               onChange={handleChangeName}
               className={classes.inputColor}
-              style={{"margin-top": 12}}
+              style={{"marginTop": 12}}
             />
             <TextField
               variant="outlined"
@@ -101,9 +109,9 @@ function Search() {
               label='Տեսարժան վայրի անվանում'
               onChange={handleChangeName}
               className={classes.inputColor}
-              style={{"margin-top": 12}}
+              style={{"marginTop": 12}}
             />
-            <FormControl variant="outlined" className={classes.formControl} style={{"margin-top": 12}}>
+            <FormControl variant="outlined" className={classes.formControl} style={{"marginTop": 12}}>
               <InputLabel htmlFor="outlined-age-native-simple">Ընտրեք մարզը</InputLabel>
               <Select
                 native
@@ -124,7 +132,7 @@ function Search() {
               </Select>
             </FormControl>
 
-            <FormControl variant="outlined" className={classes.formControl} style={{"margin-top": 12}}>
+            <FormControl variant="outlined" className={classes.formControl} style={{"marginTop": 12}}>
               <InputLabel htmlFor="outlined-age-native-simple">Ընտրեք տեղերի քանակը</InputLabel>
               <Select
                 native
@@ -178,15 +186,14 @@ function Search() {
                 />
               </MuiPickersUtilsProvider>
             </div> 
-            <div style={{"margin": 0}}>
+            {hasError && <div style={{"margin": 0}}>
                 <p className={classes.error}>Լրացրեք նաև սկսած ժամանակը</p>
-            </div>  
-            {!allInputsEmpty && <div className={classes.searchBtn}>
-            <Link to={`/result/hotel=${hotel}/view=${view}/district=${district}`}>
+            </div>}
+            {!allInputsEmpty && !hasError && <div className={classes.searchBtn}>
+            <Link to={`/result/hotel=${hotel}/view=${view}/district=${district}/bed=${bedQuantity}/from=${dateFrom}/to=${dateTo}`}>
               <Button 
                 
                 variant="success"
-                onClick={handleSubmit}
                 >
                 Search
                 </Button>
