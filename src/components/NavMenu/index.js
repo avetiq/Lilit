@@ -11,30 +11,32 @@ function NavMenu(){
         <Navbar bg="dark" variant="dark" className={classes.main}>
         <Nav>
 
-        <NavLink 
-        to='/' 
-        activeClassName={classes.active}
-        exact
-        className={classes.link}
-        >
-        Home
-        </NavLink>
-        <NavLink
-         to='/about'
-         activeClassName={classes.active}
-         exact
-         className={classes.link}
+          <NavLink 
+          to='/' 
+          activeClassName={classes.active}
+          exact
+          className={classes.link}
           >
-          About us
+          Home
           </NavLink>
-        <NavLink
-         to='/contact'
-         activeClassName={classes.active}
-         exact
-         className={classes.link}
-         >
-         Contact us
-         </NavLink>
+
+          <NavLink
+          to='/about-us'
+          activeClassName={classes.active}
+          exact
+          className={classes.link}
+            >
+            About us
+          </NavLink>
+
+          <NavLink
+          to='/contact-us'
+          activeClassName={classes.active}
+          exact
+          className={classes.link}
+          >
+          Contact us
+          </NavLink>
 
         </Nav>
       </Navbar>

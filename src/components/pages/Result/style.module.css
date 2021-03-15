@@ -1,0 +1,19 @@
+.dates {
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputColor{
+    background-color: white;
+    border-radius: 4px;
+}
+
+.formInputs{
+    width: 35%;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+}

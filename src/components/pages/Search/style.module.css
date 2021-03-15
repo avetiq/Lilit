@@ -1,6 +1,6 @@
 .root{
 
-	background-image: url(../../photos/backgroundSearch.jpg);
+	background-image: url(../../../photos/backgroundSearch.jpg);
 	background-repeat: no-repeat;
 	background-size: 100%;
 	background-position: center;
@@ -23,7 +23,7 @@
 }
 
 .dates {
-    margin-top: 25px;
+    margin-top: 12px;
     display: flex;
     justify-content: space-between;
 }
@@ -52,3 +52,15 @@
 	width: 8%;
 	display: inline-block;
 }
+
+.error {
+    color: white;
+    font-size: 12px;
+    margin: 0;
+}
+
+.errorDiv{
+    display: flex;
+    justify-content: center;
+}
+

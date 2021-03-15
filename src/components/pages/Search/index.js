@@ -4,21 +4,27 @@ import classes from './style.module.css';
 import {
     Container, TextField, FormControl, Select, InputLabel
   } from '@material-ui/core';
-import {districts} from '../../config/general'; 
+import {districts} from '../../../config/general'; 
 import { Button } from 'react-bootstrap';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import idGenerator from '../../helpers/idGenerator';  
+import {Link} from 'react-router-dom';
+import idGenerator from '../../../helpers/idGenerator';  
 
 function Search() {
 
   const [hotel, setHotel] = React.useState('');
+  const [view, setView] = React.useState('');
   const [district, setDistrict] = React.useState('');
+  const [bedQuantity, setBedQuantity] = React.useState('');
   const [dateFrom, setDateFrom] = React.useState(null);
   const [dateTo, setDateTo] = React.useState(null);
+  const [allInputsEmpty, setAllInputsEmpty] = React.useState(true);
+
+  const bedArray = [1,2,3,4,5];
 
   const handleDateChange = (date, isFirst) => {
     console.log(date);
@@ -29,27 +35,41 @@ function Search() {
     }
   };
 
+  React.useEffect(() => {
+    if((hotel + view + district).trim() === ""){
+      setAllInputsEmpty(true);
+    }else{
+      setAllInputsEmpty(false);
+    }
+  }, [hotel, view, district]);
+
   const handleChangeName = (event) => {
+    const insertedText = event.target.value.trim();
     switch(event.target.name){
       case "hotel":
-        setHotel(event.target.value);
+        setHotel(insertedText);
         break;
       case "district" : 
-        setDistrict(event.target.value);
+        setDistrict(insertedText);
         break;
+      case "view" : 
+        setView(insertedText);
+        break;
+      case "bedQuantity" :
+        setBedQuantity(insertedText);
       default: 
        break;
     }
+    
   };
 
   const handleSubmit = () => {
     const mySearchParams = {
       hotel,
-      district,
-      dateFrom,
-      dateTo
+      view,
+      district
     }
-    console.log(mySearchParams);
+    console.log(`from search page console ${mySearchParams}`);
   };
 
         return (
@@ -60,17 +80,30 @@ function Search() {
               <p className={classes.line}></p>
             </div>
           <Container component="main" maxWidth="sm" className={classes.container}> 
+            <div className={classes.errorDiv}> 
+              <p className={classes.error}>Լրացրեք հյուրանոցի կամ տեսարժան վայրի անվանում փնտրելու համար</p>
+            </div>
             <TextField
               variant="outlined"
-              margin="normal"
               fullWidth
               value={hotel}
               name="hotel"
-              label='Անվանում'
+              label='Հյուրանոցի անվանում'
               onChange={handleChangeName}
               className={classes.inputColor}
+              style={{"margin-top": 12}}
             />
-            <FormControl variant="outlined" className={classes.formControl}>
+            <TextField
+              variant="outlined"
+              fullWidth
+              value={view}
+              name="view"
+              label='Տեսարժան վայրի անվանում'
+              onChange={handleChangeName}
+              className={classes.inputColor}
+              style={{"margin-top": 12}}
+            />
+            <FormControl variant="outlined" className={classes.formControl} style={{"margin-top": 12}}>
               <InputLabel htmlFor="outlined-age-native-simple">Ընտրեք մարզը</InputLabel>
               <Select
                 native
@@ -90,6 +123,27 @@ function Search() {
               
               </Select>
             </FormControl>
+
+            <FormControl variant="outlined" className={classes.formControl} style={{"margin-top": 12}}>
+              <InputLabel htmlFor="outlined-age-native-simple">Ընտրեք տեղերի քանակը</InputLabel>
+              <Select
+                native
+                value={bedQuantity}
+                onChange={handleChangeName}
+                label="Ընտրեք տեղերի քանակը"
+                name="bedQuantity"
+                className={classes.selectWidth}
+              >
+                <option aria-label="None" value="" />
+                {bedArray.map((bedNumber) => {
+                  return (
+                      <option key={idGenerator()} value={bedNumber}>{bedNumber}</option>
+                    )
+                  })
+                }
+              
+              </Select>
+            </FormControl>
         
             <div className={classes.dates}>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -98,7 +152,6 @@ function Search() {
                   className={classes.inputColor}
                   variant="inline"
                   format="dd/MM/yyyy"
-                  margin="normal"
                   label="Սկսած"
                   value={dateFrom}
                   name="dateFrom"
@@ -108,13 +161,13 @@ function Search() {
                   }}
                 />
               </MuiPickersUtilsProvider>
+              
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
                   disableToolbar
                   className={classes.inputColor}
                   variant="inline"
                   format="dd/MM/yyyy"
-                  margin="normal"
                   label="Մինչև"
                   name="dateTo"
                   value={dateTo}
@@ -124,15 +177,21 @@ function Search() {
                   }}
                 />
               </MuiPickersUtilsProvider>
-            </div>   
-            <div className={classes.searchBtn}>
+            </div> 
+            <div style={{"margin": 0}}>
+                <p className={classes.error}>Լրացրեք նաև սկսած ժամանակը</p>
+            </div>  
+            {!allInputsEmpty && <div className={classes.searchBtn}>
+            <Link to={`/result/hotel=${hotel}/view=${view}/district=${district}`}>
               <Button 
-              variant="success"
-              onClick={handleSubmit}
-              >
-              Search
-              </Button>
-            </div>
+                
+                variant="success"
+                onClick={handleSubmit}
+                >
+                Search
+                </Button>
+              </Link>
+            </div>}
           </Container>  
         </div>
         )
