@@ -61,7 +61,7 @@ function Search() {
   }, [hotel, view, dateFrom, dateTo]);
 
   const handleChangeName = (event) => {
-    const insertedText = event.target.value.trim();
+    const insertedText = event.target.value;
     switch(event.target.name){
       case "hotel":
         setHotel(insertedText);
