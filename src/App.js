@@ -20,7 +20,7 @@ function App() {
        exact = {true}
       />
       <Route 
-       path='/result/:hotel?/:view?/:district?/:bed?/:from?/:to?'
+       path='/result'
        component = {Result}
        exact = {true}
       />

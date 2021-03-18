@@ -13,7 +13,7 @@ import {
 } from '@material-ui/pickers';
 import {Link} from 'react-router-dom';
 import idGenerator from '../../../helpers/idGenerator';
-import dateFormater from '../../../helpers/dateFormater';  
+import DateUtil from '../../../helpers/DateUtil';  
 
 function Search() {
 
@@ -50,11 +50,11 @@ function Search() {
     }
 
     if(dateFrom !== null){
-      setDateFrom(dateFormater(dateFrom))
+      setDateFrom(DateUtil.formatDate(dateFrom))
     }
 
     if(dateTo !== null){
-      setDateTo(dateFormater(dateTo))
+      setDateTo(DateUtil.formatDate(dateTo))
     }
     
     
@@ -190,7 +190,7 @@ function Search() {
                 <p className={classes.error}>Լրացրեք նաև սկսած ժամանակը</p>
             </div>}
             {!allInputsEmpty && !hasError && <div className={classes.searchBtn}>
-            <Link to={`/result/hotel=${hotel}/view=${view}/district=${district}/bed=${bedQuantity}/from=${dateFrom}/to=${dateTo}`}>
+            <Link to={{pathname:`/result`,query:{hotel, view, district, bed: bedQuantity, from: dateFrom, to: dateTo}}}>
               <Button 
                 
                 variant="success"
