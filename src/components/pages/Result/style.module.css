@@ -1,10 +1,21 @@
 
-
 .formInputs{
     width: 35%;
 }
 
 .main {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.headerLinks{
+    width: 15%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.headerLinksColor{
+    cursor: pointer;
+    color: yellowgreen;
 }
