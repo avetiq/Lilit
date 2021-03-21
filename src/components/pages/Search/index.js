@@ -50,11 +50,11 @@ function Search() {
     }
 
     if(dateFrom !== null){
-      setDateFrom(DateUtil.formatDate(dateFrom));
+      setDateFrom(dateFrom);
     }
 
     if(dateTo !== null){
-      setDateTo(DateUtil.formatDate(dateTo));
+      setDateTo(dateTo);
     }
     
     
