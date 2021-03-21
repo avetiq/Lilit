@@ -1,11 +1,13 @@
 import React from 'react';
 import SearchHotel from '../../SearchHotel';
-import classes from './style.module.css';
+import styles from './styles';
+import { withStyles } from '@material-ui/core/styles';
+
 
 
 function Result(props){
     
-    
+    const {classes} = props;
     const initialSearchValues = props.location.query;
     
     return (
@@ -34,4 +36,4 @@ function Result(props){
 
 }
 
-export default Result;
+export default withStyles(styles)(Result);

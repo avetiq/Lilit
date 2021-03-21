@@ -14,7 +14,7 @@ import { Button } from 'react-bootstrap';
 import DateUtil from '../../helpers/DateUtil'; 
 
 
-function SearchHotel(props: Props) {
+function SearchHotel(props) {
     
     console.log(props);
     const [dateFrom, setDateFrom] = React.useState(props.from ? props.from : null);
