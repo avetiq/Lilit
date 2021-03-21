@@ -50,11 +50,11 @@ function Search() {
     }
 
     if(dateFrom !== null){
-      setDateFrom(DateUtil.formatDate(dateFrom))
+      setDateFrom(dateFrom)
     }
 
     if(dateTo !== null){
-      setDateTo(DateUtil.formatDate(dateTo))
+      setDateTo(dateTo)
     }
     
     
@@ -193,7 +193,6 @@ function Search() {
             {!allInputsEmpty && !hasError && <div className={classes.searchBtn}>
             <Link to={{pathname:`/result`,query:{hotel, view, district, bed: bedQuantity, from: dateFrom, to: dateTo}}}>
               <Button 
-                
                 variant="success"
                 >
                 Search
