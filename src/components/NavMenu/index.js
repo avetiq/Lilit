@@ -33,7 +33,7 @@ function NavMenu(){
           to='/contact-us'
           activeClassName={classes.active}
           exact
-          className={classes.link}
+          className={classes.linkRight}
           >
           Contact us
           </NavLink>

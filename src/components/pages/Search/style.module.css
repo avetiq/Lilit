@@ -1,8 +1,8 @@
-.root{
+.main{
 
 	background-image: url(../../../photos/backgroundSearch.jpg);
 	background-repeat: no-repeat;
-	background-size: 100%;
+	background-size: cover;
 	background-position: center;
     width: 100vu;
     height: 100vh;

@@ -3,6 +3,11 @@
     font-weight: 800;
 }
 
+.linkRight {
+    font-size: 22px;
+    color: wheat;
+}
+
 .main {
     display: flex;
     justify-content: center !important;

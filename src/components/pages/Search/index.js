@@ -81,6 +81,7 @@ function Search() {
   };
 
       return (
+        <div className={classes.main}>
         <div className={classes.root}>
         
             <div className={classes.d2}>
@@ -200,6 +201,7 @@ function Search() {
               </Link>
             </div>}
           </Container>  
+        </div>
         </div>
         )
     
