@@ -16,7 +16,7 @@ const styles = (theme) => ({
         flexDirection: 'column',
     },    
     headerLinks: {
-        width: '20%',
+        width: '30%',
         [theme.breakpoints.down('md')]: {
             width: '30%',
             [theme.breakpoints.down('sm')]: {
