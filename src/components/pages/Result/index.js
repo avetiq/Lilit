@@ -58,6 +58,7 @@ function Result(props){
                     />}
             </div>
             <HotelSearch/>
+            <HotelSearch/>
         </div>
     );
 

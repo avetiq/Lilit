@@ -18,9 +18,9 @@ const styles = (theme) => ({
     headerLinks: {
         width: '30%',
         [theme.breakpoints.down('md')]: {
-            width: '30%',
+            width: '45%',
             [theme.breakpoints.down('sm')]: {
-                width: '50%',
+                width: '85%',
             },
         },
         display: 'flex',

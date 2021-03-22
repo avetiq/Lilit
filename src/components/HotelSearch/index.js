@@ -2,18 +2,29 @@ import React from 'react';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from 'react-bootstrap';
-import Avatar from '@material-ui/core/Avatar';
 
 
 function HotelSearch(props){
     
     const {classes} = props;
-    const aa = '../../photos/logo192.png';
     return (
         <div className={classes.main}>
-            <div>
-            <img alt="Image" src='photos/logo192.png' ></img>
+            <div className={classes.headerPart}>
+                <div className={classes.hotelName}>                
+                    <h2>Տերև հյուրանոց</h2>
+                </div>
             </div>
+            <div className={classes.contextPart}>
+                <div className={classes.imageDiv}>
+                    <img alt="Image" src='photos/logo192.png' ></img>
+                </div>
+                <div className={classes.descriptionDiv}>
+                    <p className={classes.descriptionText}>
+                    Բույսերի մեծ մասի տերևները կազմված են տերևաթիթեղից և կարճ կամ երկար կոթունից, որով ամրանում են ցողունին[1]։ Այդպիսի տերևները կոչվում են կոթունավոր։ Սակայն որոշ բույսերի տերևներ արտահայտված տերևակոթուն չունեն, դրանք նստադիր տերևներ են։ Տերևահիմքի մոտ հաճախ առաջանում են տերևակիցներ։ Տերևաթիթեղները լինում են կլոր, ձվաձև, նշտարաձև, եռանկյունաձև, սրտաձև, գծային և այլն։
+                    </p>
+                </div>
+            </div>
+            
         </div>
     );
 

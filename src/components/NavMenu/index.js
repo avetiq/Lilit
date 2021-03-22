@@ -2,10 +2,11 @@
 import React from 'react';
 import {Navbar, Nav} from 'react-bootstrap';
 import {NavLink} from 'react-router-dom';
-import classes from './style.module.css';
+import styles from './styles';
+import { withStyles } from '@material-ui/core/styles';
 
-function NavMenu(){
-
+function NavMenu(props){
+  const {classes} = props;
     //activeClassName avtomat haskanuma vor ejn enq, et style y talisa
     return(
         <Navbar bg="dark" variant="dark" className={classes.main}>
@@ -43,4 +44,4 @@ function NavMenu(){
     );
 };
 
-export default NavMenu;
+export default withStyles(styles)(NavMenu);
