@@ -1,11 +1,12 @@
 const styles = (theme) => ({
     formInputs: {
-        width: '35%',
-        [theme.breakpoints.down('sm')]: {
-            width: '90%',
-        },
-        [theme.breakpoints.only('md')]: {
+        width: '40%',
+        border: '1px solid gray',
+        [theme.breakpoints.down('md')]: {
             width: '50%',
+            [theme.breakpoints.down('sm')]: {
+                width: '90%',
+            },
         }
     },    
     main: {
@@ -15,12 +16,12 @@ const styles = (theme) => ({
         flexDirection: 'column',
     },    
     headerLinks: {
-        width: '15%',
-        [theme.breakpoints.down('sm')]: {
-            width: '50%',
-        },
-        [theme.breakpoints.only('md')]: {
+        width: '20%',
+        [theme.breakpoints.down('md')]: {
             width: '30%',
+            [theme.breakpoints.down('sm')]: {
+                width: '50%',
+            },
         },
         display: 'flex',
         justifyContent: 'space-between',
@@ -28,7 +29,21 @@ const styles = (theme) => ({
     headerLinksColor: {
         cursor: 'pointer',
         color: 'yellowgreen',
-    }
+    },
+    linkBackground: {
+        color: 'white',
+        fontSize: 21
+    },
+    buttonPadding: {
+        padding: 0,
+    },
+    buttonHeightMax: {
+        height: 40
+    },
+    buttonHeightMin: {
+        height: 30
+    },
+
 });
 
 export default styles;
