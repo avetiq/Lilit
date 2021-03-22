@@ -17,7 +17,7 @@ function NavMenu(){
           exact
           className={classes.link}
           >
-          Home
+          Գլխավոր
           </NavLink>
 
           <NavLink
@@ -26,7 +26,7 @@ function NavMenu(){
           exact
           className={classes.link}
             >
-            About us
+            Մեր Մասին
           </NavLink>
 
           <NavLink
@@ -35,7 +35,7 @@ function NavMenu(){
           exact
           className={classes.linkRight}
           >
-          Contact us
+          Կապ
           </NavLink>
 
         </Nav>

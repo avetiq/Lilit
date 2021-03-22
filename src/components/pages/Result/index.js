@@ -25,7 +25,7 @@ function Result(props){
                         }
                     }}
                     >
-                        <p className={`${hotelSearch ? classes.linkBackground : ''}`}>Hotels</p>
+                        <p className={`${hotelSearch ? classes.linkBackground : ''}`}>Հյուրանոցներ</p>
                     </Button>
                 </div>
                 <div className={classes.headerLinksColor}>
@@ -38,7 +38,7 @@ function Result(props){
                         }
                     }}
                     >
-                        <p className={`${viewSearch ? classes.linkBackground : ''}`}>Views</p>
+                        <p className={`${viewSearch ? classes.linkBackground : ''}`}>Տեսարժան վայրեր</p>
                     </Button>    
                 </div>
             </div>
