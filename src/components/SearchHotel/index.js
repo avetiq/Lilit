@@ -5,7 +5,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import {
-  Container, TextField, FormControl, Select, InputLabel
+  TextField, FormControl, Select, InputLabel
 } from '@material-ui/core';
 import classes from './style.module.css';
 import idGenerator from '../../helpers/idGenerator';

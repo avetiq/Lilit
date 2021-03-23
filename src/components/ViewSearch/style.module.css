@@ -1,0 +1,23 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.dates {
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputColor{
+    background-color: white;
+    border-radius: 4px;
+}
+
+.btnDiv {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 45px;
+}

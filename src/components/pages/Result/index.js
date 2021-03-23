@@ -1,5 +1,7 @@
 import React from 'react';
 import SearchHotel from '../../SearchHotel';
+import ViewSearch from '../../ViewSearch';
+import HotelSearch from '../../HotelSearch';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from 'react-bootstrap';
@@ -45,14 +47,18 @@ function Result(props){
             <div className={classes.formInputs}>
                 {hotelSearch && <SearchHotel
                     hotel={initialSearchValues.hotel}
-                    view={initialSearchValues.view}
                     district={initialSearchValues.district}
                     bed={initialSearchValues.bed}
                     from={initialSearchValues.from}
                     to={initialSearchValues.to}
                 />}
-                {viewSearch && <p>stex el en myus formy klini</p>}
+                {viewSearch && <ViewSearch
+                    view={initialSearchValues.view}
+                    district={initialSearchValues.district}
+                    />}
             </div>
+            <HotelSearch/>
+            <HotelSearch/>
         </div>
     );
 
