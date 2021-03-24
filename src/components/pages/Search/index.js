@@ -1,6 +1,5 @@
 import 'date-fns';
 import React from 'react';
-import classes from './style.module.css';
 import {
     Container, TextField, FormControl, Select, InputLabel
   } from '@material-ui/core';
@@ -14,9 +13,13 @@ import {
 import {Link} from 'react-router-dom';
 import idGenerator from '../../../helpers/idGenerator';
 import DateUtil from '../../../helpers/DateUtil';  
+import styles from './styles';
+import { withStyles } from '@material-ui/core/styles';
 
-function Search() {
+function Search(props) {
 
+  const {classes} = props;
+  
   const [hotel, setHotel] = React.useState('');
   const [view, setView] = React.useState('');
   const [district, setDistrict] = React.useState('');
@@ -158,7 +161,7 @@ function Search() {
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
                   disableToolbar
-                  className={classes.inputColor}
+                  className={`${classes.inputColor} ${classes.datesInputStyle}`}
                   variant="inline"
                   format="dd/MM/yyyy"
                   label="Սկսած"
@@ -170,11 +173,13 @@ function Search() {
                   }}
                 />
               </MuiPickersUtilsProvider>
-              
+              {hasError && <div style={{"margin": 0}}>
+                <p className={classes.errorSM}>Լրացրեք նաև սկսած ժամանակը</p>
+              </div>}
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
                   disableToolbar
-                  className={classes.inputColor}
+                  className={`${classes.inputColor} ${classes.datesInputStyle}`}
                   variant="inline"
                   format="dd/MM/yyyy"
                   label="Մինչև"
@@ -195,7 +200,7 @@ function Search() {
               <Button 
                 variant="success"
                 >
-                Search
+                Փնտրել
                 </Button>
               </Link>
             </div>}
@@ -206,4 +211,4 @@ function Search() {
     
 }
 
-export default Search;
+export default withStyles(styles)(Search);

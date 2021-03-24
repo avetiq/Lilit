@@ -20,7 +20,7 @@ const styles = (theme) => ({
         [theme.breakpoints.down('sm')]: {
             marginRight: 36,
         },
-        fontSize: 22,
+        fontSize: 20,
         color: 'wheat',
         "&:hover": {
             textDecoration: 'none',

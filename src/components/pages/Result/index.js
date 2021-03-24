@@ -1,7 +1,8 @@
 import React from 'react';
 import SearchHotel from '../../SearchHotel';
 import ViewSearch from '../../ViewSearch';
-import HotelSearch from '../../HotelSearch';
+import HotelResult from '../../HotelResult';
+import ViewResult from '../../ViewResult';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from 'react-bootstrap';
@@ -57,8 +58,13 @@ function Result(props){
                     district={initialSearchValues.district}
                     />}
             </div>
-            <HotelSearch/>
-            <HotelSearch/>
+            {
+                hotelSearch && <HotelResult/>
+            }
+            {
+                viewSearch && <ViewResult/>
+            }
+            
         </div>
     );
 
