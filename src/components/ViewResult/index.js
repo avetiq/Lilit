@@ -4,14 +4,14 @@ import { withStyles } from '@material-ui/core/styles';
 import { Button } from 'react-bootstrap';
 
 
-function HotelSearch(props){
+function ViewResult(props){
     
     const {classes} = props;
     return (
         <div className={classes.main}>
             <div className={classes.headerPart}>
                 <div className={classes.hotelName}>                
-                    <h2>Տերև հյուրանոց</h2>
+                    <h2>Տերև Տեսարժան վայր</h2>
                 </div>
             </div>
             <div className={classes.contextPart}>
@@ -31,4 +31,4 @@ function HotelSearch(props){
 
 }
 
-export default withStyles(styles)(HotelSearch);
+export default withStyles(styles)(ViewResult);

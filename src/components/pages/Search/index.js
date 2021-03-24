@@ -1,6 +1,5 @@
 import 'date-fns';
 import React from 'react';
-import classes from './style.module.css';
 import {
     Container, TextField, FormControl, Select, InputLabel
   } from '@material-ui/core';
@@ -14,9 +13,13 @@ import {
 import {Link} from 'react-router-dom';
 import idGenerator from '../../../helpers/idGenerator';
 import DateUtil from '../../../helpers/DateUtil';  
+import styles from './styles';
+import { withStyles } from '@material-ui/core/styles';
 
-function Search() {
+function Search(props) {
 
+  const {classes} = props;
+  
   const [hotel, setHotel] = React.useState('');
   const [view, setView] = React.useState('');
   const [district, setDistrict] = React.useState('');
@@ -206,4 +209,4 @@ function Search() {
     
 }
 
-export default Search;
+export default withStyles(styles)(Search);
