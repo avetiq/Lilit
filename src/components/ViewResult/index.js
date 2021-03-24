@@ -11,7 +11,7 @@ function ViewResult(props){
         <div className={classes.main}>
             <div className={classes.headerPart}>
                 <div className={classes.hotelName}>                
-                    <h2>Տերև Տեսարժան վայր</h2>
+                    <h4>Տերև Տեսարժան վայր</h4>
                 </div>
             </div>
             <div className={classes.contextPart}>

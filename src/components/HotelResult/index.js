@@ -11,7 +11,7 @@ function HotelResult(props){
         <div className={classes.main}>
             <div className={classes.headerPart}>
                 <div className={classes.hotelName}>                
-                    <h2>Տերև հյուրանոց</h2>
+                    <h4>Տերև հյուրանոց</h4>
                 </div>
             </div>
             <div className={classes.contextPart}>
