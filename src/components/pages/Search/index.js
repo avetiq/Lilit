@@ -161,7 +161,7 @@ function Search(props) {
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
                   disableToolbar
-                  className={classes.inputColor}
+                  className={`${classes.inputColor} ${classes.datesInputStyle}`}
                   variant="inline"
                   format="dd/MM/yyyy"
                   label="Սկսած"
@@ -173,11 +173,13 @@ function Search(props) {
                   }}
                 />
               </MuiPickersUtilsProvider>
-              
+              {hasError && <div style={{"margin": 0}}>
+                <p className={classes.errorSM}>Լրացրեք նաև սկսած ժամանակը</p>
+              </div>}
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
                   disableToolbar
-                  className={classes.inputColor}
+                  className={`${classes.inputColor} ${classes.datesInputStyle}`}
                   variant="inline"
                   format="dd/MM/yyyy"
                   label="Մինչև"
@@ -198,7 +200,7 @@ function Search(props) {
               <Button 
                 variant="success"
                 >
-                Search
+                Փնտրել
                 </Button>
               </Link>
             </div>}

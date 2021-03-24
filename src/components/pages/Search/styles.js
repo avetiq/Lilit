@@ -5,6 +5,9 @@ const styles = (theme) => ({
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         width: '100vu',
+        [theme.breakpoints.down('sm')]: {
+            height: 900,
+        },
         height: '100vh',
     },
     formControl: {
@@ -16,12 +19,20 @@ const styles = (theme) => ({
     searchBtn: {
         margin: '0 auto',
         marginTop: 25,
-        width: '15%',
+        display: 'flex',
+        justifyContent: 'center'
     },
     dates: {
         marginTop: 12,
         display: 'flex',
         justifyContent: 'space-between',
+        [theme.breakpoints.down('sm')]: {
+            display: 'grid',
+            justifyContent: 'center',
+        },
+    },
+    datesInputStyle: {
+        marginTop: 12, 
     },
     inputColor: {
         backgroundColor: 'white',
@@ -45,10 +56,27 @@ const styles = (theme) => ({
         color: 'white',
         fontSize: 12,
         margin: 0,
+        [theme.breakpoints.down('sm')]: {
+            display: 'none'
+        },
+    },
+    errorSM: {
+        [theme.breakpoints.up('md')]: {
+            display: 'none'
+        },
+        color: 'white',
+        fontSize: 12,
+        margin: 0,
     },
     errorDiv: {
         display: 'flex',
         justifyContent: 'center',
+    },
+    container: {
+        width: '100%',
+        [theme.breakpoints.down('sm')]: {
+            width: '85%',
+        },
     }
 
 });
