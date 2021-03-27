@@ -6,6 +6,7 @@ import ViewResult from '../../ViewResult';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from 'react-bootstrap';
+import searchResult from '../../../models/searchResult';
 
 
 function Result(props){
@@ -14,7 +15,49 @@ function Result(props){
     const initialSearchValues = props.location.query;
     const [hotelSearch, setHotelSearch] = React.useState(true);
     const [viewSearch, setViewSearch] = React.useState(false);
-    
+    console.log(initialSearchValues)
+
+    React.useEffect(()=>{
+        
+        fetch(`/api/Travel?HotelName=Marriot`, {
+            method: 'GET',
+            
+        })
+            .then(async (response) => {
+                const res = await response.json();
+
+                if(response.status >=400 && response.status < 600){
+                    if(res.error){
+                        throw res.error;
+                    }
+                    else {
+                        throw new Error('Something went wrong!');
+                    }
+                }
+                return res;
+            })
+            .then((res) =>{
+                const data: Array<searchResult> = [];
+                res.forEach(resElement => {
+                    const current = new searchResult();
+                    current.id = resElement.id;
+                    current.name = resElement.name;
+                    current.district = resElement.district;
+                    current.photoSource = resElement.photoSource;
+                    current.longInfo = resElement.longInfo;
+                    current.latitude = resElement.latitude;
+                    current.longitude = resElement.longitude;
+                    current.isHotel = resElement.isHotel;
+                    data.push(current);
+                });
+                console.log(data);
+            })
+            .catch((error)=>{
+                console.log('catch error', error);
+            });
+
+    },[])
+
     return (
         <div className={classes.main}>
             <div className={classes.headerLinks}>

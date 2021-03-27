@@ -16,7 +16,7 @@ import DateUtil from '../../helpers/DateUtil';
 
 function SearchHotel(props) {
     
-    console.log(props);
+    
     const [dateFrom, setDateFrom] = React.useState(props.from ? props.from : null);
     const [dateTo, setDateTo] = React.useState(props.to ? props.to : null);
     const [hotel, setHotel] = React.useState(props.hotel ? props.hotel : '');
@@ -41,7 +41,7 @@ function SearchHotel(props) {
     }
 
     const handleDateChange = (date, isFirst) => {
-        console.log(date);
+        
         if(isFirst){
           setDateFrom(date);
         }else{
