@@ -10,7 +10,7 @@ import { Button } from 'react-bootstrap';
 
 function ViewSearch(props) {
     
-    console.log(props);
+    
     const [view, setView] = React.useState(props.view ? props.view : '');
     const [district, setDistrict] = React.useState(props.district ? props.district : '');
 
