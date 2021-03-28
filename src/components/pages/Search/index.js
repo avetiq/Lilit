@@ -12,7 +12,6 @@ import {
 } from '@material-ui/pickers';
 import {Link} from 'react-router-dom';
 import idGenerator from '../../../helpers/idGenerator';
-import DateUtil from '../../../helpers/DateUtil';  
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 

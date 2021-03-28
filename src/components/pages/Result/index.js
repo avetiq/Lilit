@@ -7,7 +7,9 @@ import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from 'react-bootstrap';
 import searchResult from '../../../models/searchResult';
-
+import DateUtil from '../../../helpers/DateUtil';
+import idGenerator from '../../../helpers/idGenerator';
+import Spinner from '../../Spinner';
 
 function Result(props){
     
@@ -17,9 +19,20 @@ function Result(props){
     const [viewSearch, setViewSearch] = React.useState(false);
     console.log(initialSearchValues)
 
+    const [hotelList, setHotelList] = React.useState();
+    const [viewList, setViewList] = React.useState();
+    const [spinner, setSpinner] = React.useState(true);
+    
     React.useEffect(()=>{
         
-        fetch(`/api/Travel?HotelName=Marriot`, {
+        fetch(`/api/Travel?`+ new URLSearchParams({
+            HotelName: initialSearchValues.hotel,
+            ViewName: initialSearchValues.view,
+            District: initialSearchValues.district,
+            From: initialSearchValues.from ? DateUtil.formatDate(initialSearchValues.from) : '',
+            To: initialSearchValues.to ? DateUtil.formatDate(initialSearchValues.to) : '',
+            BedQuantity: initialSearchValues.bed ? parseInt(initialSearchValues.bed) : '',
+        }), {
             method: 'GET',
             
         })
@@ -37,7 +50,8 @@ function Result(props){
                 return res;
             })
             .then((res) =>{
-                const data: Array<searchResult> = [];
+                const dataHotel: Array<searchResult> = [];
+                const dataView: Array<searchResult> = [];
                 res.forEach(resElement => {
                     const current = new searchResult();
                     current.id = resElement.id;
@@ -47,16 +61,23 @@ function Result(props){
                     current.longInfo = resElement.longInfo;
                     current.latitude = resElement.latitude;
                     current.longitude = resElement.longitude;
-                    current.isHotel = resElement.isHotel;
-                    data.push(current);
+                    if(resElement.isHotel){
+                        dataHotel.push(current);
+                    }else{
+                        dataView.push(current);
+                    }
+                    
                 });
-                console.log(data);
+                
+                setHotelList(dataHotel);
+                setViewList(dataView);
+                setSpinner(false);
             })
             .catch((error)=>{
                 console.log('catch error', error);
             });
 
-    },[])
+    }, [])
 
     return (
         <div className={classes.main}>
@@ -102,12 +123,26 @@ function Result(props){
                     />}
             </div>
             {
-                hotelSearch && <HotelResult/>
+                hotelSearch && hotelList &&
+                hotelList.map((el) => 
+                    <HotelResult
+                        key={idGenerator()}
+                        info={el}
+                    />
+                )
             }
             {
-                viewSearch && <ViewResult/>
+                viewSearch && viewList &&
+                viewList.map((el) => 
+                    <ViewResult
+                        key={idGenerator()}
+                        info={el}
+                    />
+                )
             }
-            
+            {
+                spinner && <Spinner />
+            }
         </div>
     );
 
