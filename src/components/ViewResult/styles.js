@@ -25,21 +25,28 @@ const styles = (theme) => ({
         marginTop: 10,
         display: 'flex',
         [theme.breakpoints.down('sm')]: {
-            flexDirection: 'column'
+            flexDirection: 'column',
+            alignItems: 'center',
         },
     },
     imageDiv: {
-        width: '25%',
+        width: '33%',
+        display: 'flex',
+        alignItems: 'center',
         [theme.breakpoints.down('sm')]: {
-            width: '100%',
+            width: '75%',
             display: 'flex',
-            justifyContent: 'center'
+            justifyContent: 'center',
         },
         marginRight: '20px !important'
     },
+    imgStyle: {
+        width: '100%'
+    },
     descriptionDiv: {
+        width: '67%',
         [theme.breakpoints.down('sm')]: {
-            padding: '0 35px',
+            marginTop: 20,
         },
     }    
 
