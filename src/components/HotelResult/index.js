@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
 
 function HotelResult(props){
@@ -11,8 +12,10 @@ function HotelResult(props){
     return (
         <div className={classes.main}>
             <div className={classes.headerPart}>
-                <div className={classes.hotelName}>                
-                    <h4 style={{fontSize: '1.3rem'}}>{info.name}</h4>
+                <div className={classes.hotelName}>  
+                    <Link to={{pathname:`/result/hotel`,query:{}}}>
+                        <h4 style={{fontSize: '1.3rem'}}>{info.name}</h4>
+                    </Link>              
                 </div>
             </div>
             <div className={classes.contextPart}>
