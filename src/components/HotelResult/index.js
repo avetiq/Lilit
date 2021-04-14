@@ -8,7 +8,7 @@ import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detec
 function HotelResult(props){
     
     const {classes, info} = props;
-    console.log(info);
+    
     return (
         <div className={classes.main}>
             <div className={classes.headerPart}>

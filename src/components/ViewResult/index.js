@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
+import {Link} from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
 
@@ -8,13 +9,14 @@ import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detec
 function ViewResult(props){
     
     const {classes, info} = props;
-    console.log(info);
 
     return (
         <div className={classes.main}>
             <div className={classes.headerPart}>
                 <div className={classes.hotelName}>                
-                    <h4 style={{fontSize: '1.3rem'}}>{info.name}</h4>
+                    <Link to={{pathname:`/result/view`,query:{id:info.id}}}>
+                        <h4 style={{fontSize: '1.3rem'}}>{info.name}</h4>
+                    </Link>
                 </div>
             </div>
             <div className={classes.contextPart}>

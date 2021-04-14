@@ -8,6 +8,8 @@ class searchResult{
     latitude: double;
     longitude: double;
     isHotel: boolean;
+    phone: String;
+    address: String;
 };
 
 export default searchResult;
