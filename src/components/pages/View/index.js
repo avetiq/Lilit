@@ -1,10 +1,8 @@
 import React from 'react';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
-import { Button } from 'react-bootstrap';
 import searchResult from '../../../models/searchResult';
 import Spinner from '../../Spinner';
-import 'react-slideshow-image/dist/styles.css';
 import Carousel from 'react-gallery-carousel';
 import 'react-gallery-carousel/dist/index.css';
 
@@ -86,16 +84,19 @@ function View(props){
                 });
 
     }, [])
-const imagesShow = images.map((name) => ({
-    src: name,
-    sizes: '300px , 300px'
-  }));
-  console.log(content);
-    return (
+    const imagesShow = images.map((name) => ({
+        src: name,
+        sizes: '300px , 300px'
+    }));
+
+  return (
         <div className={classes.main}>
             <div className={classes.headerContent}>
                 <h4 style={{margin: '0 auto'}}>{content && content.name}</h4>
                 <Carousel images={imagesShow} className={classes.carousel}/>
+            </div>
+            <div className={classes.content}>
+                <p>{content && content.longInfo}</p>
             </div>
             {
                 spinner && <Spinner />
