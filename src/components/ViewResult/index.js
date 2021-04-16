@@ -1,20 +1,21 @@
 import React from 'react';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
-import { Button } from 'react-bootstrap';
-import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
+import {Link} from 'react-router-dom';
+import { BrowserView, MobileView } from "react-device-detect";
 
 
 function ViewResult(props){
     
     const {classes, info} = props;
-    console.log(info);
 
     return (
         <div className={classes.main}>
             <div className={classes.headerPart}>
                 <div className={classes.hotelName}>                
-                    <h4 style={{fontSize: '1.3rem'}}>{info.name}</h4>
+                    <Link to={{pathname:`/result/view`,query:{id:info.id}}}>
+                        <h4 style={{fontSize: '1.3rem'}}>{info.name}</h4>
+                    </Link>
                 </div>
             </div>
             <div className={classes.contextPart}>
@@ -22,14 +23,13 @@ function ViewResult(props){
                     <img alt="Image" src={info.photoSource} className={classes.imgStyle}></img>
                 </div>
                 <div className={classes.descriptionDiv}>
-                    <p className={classes.descriptionText}>
+                    
                         <BrowserView>
-                            {info.longInfo.length > 450 ? info.longInfo.substring(0, 450) : info.longInfo}...
+                        <p className={classes.descriptionText}>{info.longInfo.length > 450 ? info.longInfo.substring(0, 450) : info.longInfo}...</p>
                         </BrowserView>
                         <MobileView>
-                            {info.longInfo.length > 150 ? info.longInfo.substring(0, 150) : info.longInfo}...
+                        <p className={classes.descriptionText}>{info.longInfo.length > 150 ? info.longInfo.substring(0, 150) : info.longInfo}...</p>
                         </MobileView>
-                    </p>
                 </div>
             </div>
             

@@ -17,8 +17,6 @@ function Result(props){
     const initialSearchValues = props.location.query;
     const [hotelSearch, setHotelSearch] = React.useState(true);
     const [viewSearch, setViewSearch] = React.useState(false);
-    console.log(initialSearchValues)
-
     const [hotelList, setHotelList] = React.useState();
     const [viewList, setViewList] = React.useState();
     const [spinner, setSpinner] = React.useState(true);

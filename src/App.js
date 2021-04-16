@@ -1,6 +1,8 @@
 import './App.css';
 import Search from './components/pages/Search';
 import Result from './components/pages/Result';
+import Hotel from './components/pages/Hotel';
+import View from './components/pages/View';
 import NavMenu from './components/NavMenu';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
@@ -32,7 +34,17 @@ function App() {
        component = {Result}
        exact = {true}
       />
-      
+      <Route 
+       path='/result/hotel'
+       component = {Hotel}
+       exact = {true}
+      />
+      <Route 
+       path='/result/view'
+       component = {View}
+       exact = {true}
+      />
+
       <Redirect to='/not-found'/>
       </Switch>
 
