@@ -1,7 +1,4 @@
 const styles = () => ({
-   main: {
-       
-   },
    slide: {
        paddingTop: 40,
    },
