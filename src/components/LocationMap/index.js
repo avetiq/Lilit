@@ -40,7 +40,7 @@ return (
         preset: "islands#dotIcon",
       }}
     />
-    {
+    {closePoints.length > 0 &&
       closePoints.map((point) => 
       <Placemark 
         key={point.lat.toString() + ' ' + point.lng.toString()}

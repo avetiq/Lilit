@@ -2,6 +2,8 @@ import './App.css';
 import Search from './components/pages/Search';
 import Result from './components/pages/Result';
 import Hotel from './components/pages/Hotel';
+import ContactUs from './components/pages/ContactUs';
+import AboutUs from './components/pages/AboutUs';
 import View from './components/pages/View';
 import NavMenu from './components/NavMenu';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -43,6 +45,16 @@ function App() {
        path='/result/view'
        component = {View}
        exact = {true}
+      />
+      <Route 
+       path='/contact-us'
+       component = {ContactUs}
+       exact = {true}
+      />
+      <Route 
+      path='/about-us'
+      component = {AboutUs}
+      exact = {true}
       />
 
       <Redirect to='/not-found'/>
