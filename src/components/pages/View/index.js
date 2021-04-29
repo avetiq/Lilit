@@ -109,7 +109,10 @@ function View(props){
                         res.forEach(resElement => {
                             if(resElement.isHotel){
                                 forMap.push({
-                                    lat: resElement.latitude, lng: resElement.longitude
+                                    lat: resElement.latitude,
+                                    lng: resElement.longitude,
+                                    id: resElement.id,
+                                    name: resElement.name
                                 });
                             }                            
                         });
@@ -145,6 +148,7 @@ function View(props){
                 <div>
                     {content &&
                     <LocationMap 
+                        forHotelPage={false}
                         centerCoordinates={[content.latitude, content.longitude]}
                         closePoints={mapPoints}
                     />

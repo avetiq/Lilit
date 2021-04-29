@@ -1,7 +1,16 @@
 import React from "react";
-import { YMaps, Map, Placemark, FullscreenControl, Popup } from "react-yandex-maps";
+import { YMaps, Map, Placemark, FullscreenControl } from "react-yandex-maps";
+import {Link} from 'react-router-dom';
+
 
 class LocationMap extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      pointId: -1,
+      pointName: '',
+    };
+  }
   
 
 
@@ -16,7 +25,7 @@ render() {
     yandexMapDisablePoiInteractivity: false,
   };
 
-
+  console.log(this.state.pointName);
     // draw at first out place then close points
 
 return (
@@ -36,7 +45,7 @@ return (
       <Placemark 
         key={point.lat.toString() + ' ' + point.lng.toString()}
         geometry={[point.lat, point.lng]}
-        onClick={() => console.log(point)}
+        onClick={() => this.setState({pointId: point.id, pointName: point.name })}
         options={{
           preset: "islands#icon",
           iconColor: 'red'
@@ -44,10 +53,13 @@ return (
       />
       )
     }
-    {
-      <span>
-        ooo
-      </span>
+    {this.props.forHotelPage ?
+      <Link to={{pathname:`/result/view`,query:{id: this.state.pointId, name: this.state.pointName}}}>
+          <h6 style={{fontSize: '18px', marginBottom: 12}}>{this.state.pointName}</h6>
+      </Link> : 
+      <Link to={{pathname:`/result/hotel`,query:{id: this.state.pointId, name: this.state.pointName}}}>
+          <h6 style={{fontSize: '18px', marginBottom: 12}}>{this.state.pointName}</h6>
+      </Link>
     }
     <FullscreenControl />
     </Map>

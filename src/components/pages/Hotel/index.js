@@ -87,7 +87,7 @@ function Hotel(props){
                 });
 
                 fetch(`/api/Travel?`+ new URLSearchParams({
-                    HotelName: initialSearchValues.hotel,
+                    HotelName: initialSearchValues.name,
                 }), {
                     method: 'GET',
                 })
@@ -109,7 +109,10 @@ function Hotel(props){
                         res.forEach(resElement => {
                             if(!resElement.isHotel){
                                 forMap.push({
-                                    lat: resElement.latitude, lng: resElement.longitude
+                                    lat: resElement.latitude,
+                                    lng: resElement.longitude,
+                                    id: resElement.id,
+                                    name: resElement.name
                                 });
                             }                            
                         });
@@ -149,6 +152,7 @@ console.log(content);
                 <div>
                     {content &&
                     <LocationMap 
+                        forHotelPage
                         centerCoordinates={[content.latitude, content.longitude]}
                         closePoints={mapPoints}
                     />
