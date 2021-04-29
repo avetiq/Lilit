@@ -13,7 +13,7 @@ function HotelResult(props){
         <div className={classes.main}>
             <div className={classes.headerPart}>
                 <div className={classes.hotelName}>  
-                    <Link to={{pathname:`/result/hotel`,query:{id:info.id, hotel: info.name}}}>
+                    <Link to={{pathname:`/result/hotel`,query:{id:info.id, name: info.name}}}>
                         <h4 style={{fontSize: '1.3rem'}}>{nameConverter(info.name)}</h4>
                     </Link>              
                 </div>

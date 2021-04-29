@@ -1,23 +1,36 @@
 const styles = (theme) => ({
     main: {
-        marginTop: 25,
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column'
     },
+    contentPart: {
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: 30,
+        marginBottom: 100
+    },
     headerContent: {
-        width: '30%',
+        marginTop: 25,
+        width: '60%',
         display: 'flex',
         justifyContent: 'center',
         flexDirection: 'column'
     },
-    carousel: {
-        margin: '20px 0px 20px 0px',
-        height: 500,
-    },
     content: {
-        width: '40%',
-    }
+        width: '37%',
+        marginRight: 20
+    },
+    slider: {
+        '&>ul': {
+            marginBottom: '80px',
+        },
+        '&>svg': {
+            color: "aliceblue",
+            zIndex: 10,
+            fontSize: 74,
+        }, 
+    },
 
 });
 

@@ -13,7 +13,7 @@ function ViewResult(props){
         <div className={classes.main}>
             <div className={classes.headerPart}>
                 <div className={classes.hotelName}>                
-                    <Link to={{pathname:`/result/view`,query:{id:info.id}}}>
+                    <Link to={{pathname:`/result/view`,query:{id:info.id, name:info.name}}}>
                         <h4 style={{fontSize: '1.3rem'}}>{info.name}</h4>
                     </Link>
                 </div>

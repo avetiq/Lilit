@@ -3,9 +3,10 @@ import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import searchResult from '../../../models/searchResult';
 import Spinner from '../../Spinner';
-import Carousel from 'react-gallery-carousel';
+import MySlider from "../../MySlider";
 import 'react-gallery-carousel/dist/index.css';
 import nameConverter from '../../../helpers/nameConverter';
+import LocationMap from '../../LocationMap';
 
 
 function Hotel(props){
@@ -86,7 +87,7 @@ function Hotel(props){
                 });
 
                 fetch(`/api/Travel?`+ new URLSearchParams({
-                    HotelName: initialSearchValues.hotel,
+                    HotelName: initialSearchValues.name,
                 }), {
                     method: 'GET',
                 })
@@ -108,7 +109,10 @@ function Hotel(props){
                         res.forEach(resElement => {
                             if(!resElement.isHotel){
                                 forMap.push({
-                                    lat: resElement.latitude, lng: resElement.longitude
+                                    lat: resElement.latitude,
+                                    lng: resElement.longitude,
+                                    id: resElement.id,
+                                    name: resElement.name
                                 });
                             }                            
                         });
@@ -122,19 +126,39 @@ function Hotel(props){
         
 
     }, [])
-const imagesShow = images.map((name) => ({
-    src: name,
-    sizes: '300px , 300px'
-  }));
+
+  /*
+  <Carousel images={imagesShow} className={classes.carousel} curIndex={0}/>
+  */
 console.log(mapPoints);
+console.log(content);
   return (
-        <div className={classes.main}>
+        <div className={classes.main} style={{ backgroundColor: '#f0f2f5'}}>
             <div className={classes.headerContent}>
-                <h4 style={{margin: '0 auto'}}>{content && nameConverter(content.name)}</h4>
-                <Carousel images={imagesShow} className={classes.carousel} curIndex={0}/>
+                <h4 style={{margin: '0 auto 20px auto'}}>{content && nameConverter(content.name)}</h4>
+                <div style={{width: '100%'}}>
+                    <MySlider 
+                        className={classes.slider}
+                        arrowLeftStyles={classes.arrowLeft}
+                        arrowRightStyles={classes.arrowRight}
+                        images={images}
+                    />
+                </div>                    
             </div>
-            <div className={classes.content}>
-                <p>{content && content.longInfo}</p>
+            <div className={classes.contentPart}>
+                <div className={classes.content}>
+                    <p>{content && content.longInfo}</p>
+                </div>
+                <div>
+                    {content &&
+                    <LocationMap 
+                        forHotelPage
+                        centerCoordinates={[content.latitude, content.longitude]}
+                        closePoints={mapPoints}
+                    />
+                    }
+                </div>    
+
             </div>
             {
                 spinner && <Spinner />
