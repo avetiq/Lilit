@@ -12,7 +12,7 @@ const styles = (theme) => ({
     },
     headerContent: {
         marginTop: 25,
-        width: '60%',
+        width: '42%',
         display: 'flex',
         justifyContent: 'center',
         flexDirection: 'column'
