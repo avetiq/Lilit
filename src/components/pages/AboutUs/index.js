@@ -3,7 +3,8 @@ import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import {Carousel} from '3d-react-carousal';
 import LocationMap from '../../LocationMap';
-
+import { Player } from 'video-react';
+import "video-react/dist/video-react.css";
 
 function AboutUs(props){
     
@@ -55,7 +56,30 @@ function AboutUs(props){
                         </div>
                     </div>        
                 </div>
+                
             </div> 
+            <div className={classes.videoWrapper}>
+                <div className={classes.video}>
+                        <h4 style={{margin: '0px auto 20px auto'}}>Կարճ մեր մասին</h4>
+                        <div>
+                            <Player
+                                playsInline
+                                poster="/assets/poster.png"
+                                src="photos/a.mp4"
+                            />
+                        </div>
+                </div>
+                <div className={classes.video}>
+                        <h4 style={{margin: '0px auto 20px auto'}}>Կարճ մեր մասին</h4>
+                        <div>
+                            <Player
+                                playsInline
+                                poster="/assets/poster.png"
+                                src="photos/a.mp4"
+                            />
+                        </div>
+                </div>
+            </div>    
         </div>
     );
 

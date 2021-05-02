@@ -1,4 +1,9 @@
 const styles = () => ({
+     main: {
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+     },
    slide: {
        paddingTop: 40,
    },
@@ -28,7 +33,7 @@ const styles = () => ({
    ourCars: {
         width: '100%',
         marginTop: 30,
-        paddingBottom: 100,
+        paddingBottom: 50,
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column'
@@ -43,6 +48,20 @@ const styles = () => ({
         height: 200,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
+   },
+   video: {
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        paddingBottom: 100,
+        width: '20%',
+        margin: '0 auto'
+   },
+   videoWrapper: {
+        display: 'flex',
+        justifyContent: 'space-around',
+        width: '70%',
+        margin: '0 auto'
    }
 
 });

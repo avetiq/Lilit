@@ -18,6 +18,7 @@ function Hotel(props){
     const [spinner, setSpinner] = React.useState(true);
     const [images, setImgaes] = React.useState([]);
     const [mapPoints, setMapPoints] = React.useState([]);
+    const [freeRooms, setFreeRooms] = React.useState([]);
 
     React.useEffect(()=>{
         
@@ -55,6 +56,48 @@ function Hotel(props){
             .catch((error)=>{
                 console.log('catch error', error);
             });
+
+
+            // getting free rooms
+            fetch(`/api/Hotel/FreeRoomInfo?`+ new URLSearchParams({
+                ID: initialSearchValues.id,
+                From: initialSearchValues.from,
+                To: initialSearchValues.to,
+                BedQuantity: initialSearchValues.bed
+            }), {
+                method: 'GET',
+            })
+                .then(async (response) => {
+                    const res = await response.json();
+    
+                    if(response.status >=400 && response.status < 600){
+                        if(res.error){
+                            throw res.error;
+                        }
+                        else {
+                            throw new Error('Something went wrong!');
+                        }
+                    }
+                    return res;
+                })
+                .then((res) =>{
+                                       
+                    let listFreeRooms = [];
+                    if(res.length !== 0){
+                        res.forEach((el) => {
+                        listFreeRooms.push({
+                                bed: el.bed,
+                                money: el.money
+                            })
+                        }
+                        )
+                    }              
+                    setFreeRooms(listFreeRooms)
+                })
+                .catch((error)=>{
+                    console.log('catch error', error);
+                });
+
 
             //geting photos
             fetch(`/api/Hotel/Photos/${initialSearchValues.id}`, {
@@ -127,11 +170,7 @@ function Hotel(props){
 
     }, [])
 
-  /*
-  <Carousel images={imagesShow} className={classes.carousel} curIndex={0}/>
-  */
-console.log(mapPoints);
-console.log(content);
+  
   return (
         <div className={classes.main} style={{ backgroundColor: '#f0f2f5'}}>
             <div className={classes.headerContent}>
@@ -146,20 +185,50 @@ console.log(content);
                 </div>                    
             </div>
             <div className={classes.contentPart}>
-                <div className={classes.content}>
-                    <p>{content && content.longInfo}</p>
-                </div>
-                <div>
-                    {content &&
-                    <LocationMap 
-                        forHotelPage
-                        centerCoordinates={[content.latitude, content.longitude]}
-                        closePoints={mapPoints}
-                    />
+                <div className={classes.content} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+                    <h4 style={{margin: '0px auto 15px auto'}}>Տեղեկատվություն</h4>
+                    <p>{content ? content.longInfo : ''}</p>
+                    {content && <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', border: '1px solid gray'}}>       
+                        <p>Հասցե. {content.district}ի մարզ </p>
+                        <p>{content.address}</p>
+                        <p>Հեռ. {content.phone}</p>
+                    </div>
                     }
-                </div>    
-
+                </div>
+                <div style={{display: 'flex', flexDirection: 'column'}}>
+                    {content &&
+                    <div>
+                        <div>
+                        <LocationMap 
+                            forHotelPage
+                            centerCoordinates={[content.latitude, content.longitude]}
+                            closePoints={mapPoints}
+                        />
+                        </div>
+                        
+                    </div>
+                    }
+                </div>  
+                
             </div>
+            <div className={classes.freeRooms}>
+                <h4>Հյուրանոցում առկա ազատ համարներ</h4>
+            {freeRooms.length > 0 &&
+                  freeRooms.map((room, index) => {
+                    
+                    return(
+                        <div key={`${room.bed}s${index}`} className={classes.freeRoom}>
+                            <div style={{backgroundImage: 'url(../../../photos/ashot.jpg)'}} className={classes.bedImg}/>
+                            <div style={{alignItems: 'center', display: 'flex', marginLeft: 20}}>
+                                {room.bed} սենյակ {room.money}AMD
+                            </div>
+                        </div>
+                    );
+                })
+            }
+                
+            </div>
+
             {
                 spinner && <Spinner />
             }

@@ -15,6 +15,7 @@ import idGenerator from '../../../helpers/idGenerator';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 
+
 function Search(props) {
 
   const {classes} = props;
@@ -205,6 +206,7 @@ function Search(props) {
             </div>}
           </Container>  
         </div>
+        
         </div>
         )
     
