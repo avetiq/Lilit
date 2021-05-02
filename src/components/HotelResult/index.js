@@ -7,13 +7,12 @@ import nameConverter from '../../helpers/nameConverter';
 
 function HotelResult(props){
     
-    const {classes, info} = props;
-    
+    const {classes, info, hotelFreeRooms} = props;
     return (
         <div className={classes.main}>
             <div className={classes.headerPart}>
                 <div className={classes.hotelName}>  
-                    <Link to={{pathname:`/result/hotel`,query:{id:info.id, name: info.name}}}>
+                    <Link to={{pathname:`/result/hotel`,query:{id:info.id, name: info.name, bed: hotelFreeRooms.bed, to: hotelFreeRooms.to, from: hotelFreeRooms.from}}}>
                         <h4 style={{fontSize: '1.3rem'}}>{nameConverter(info.name)}</h4>
                     </Link>              
                 </div>

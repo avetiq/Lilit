@@ -8,7 +8,7 @@ const styles = (theme) => ({
         display: 'flex',
         justifyContent: 'center',
         marginTop: 30,
-        marginBottom: 100
+        marginBottom: 20
     },
     headerContent: {
         marginTop: 25,
@@ -31,6 +31,22 @@ const styles = (theme) => ({
             fontSize: 74,
         }, 
     },
+    freeRooms: {
+        marginBottom: 100
+    },
+    freeRoom: {
+        width: '100%',
+        height: 50,
+        display: 'flex',
+        marginBottom: 10
+    },
+    bedImg: {
+        width: 50,
+        height: 50,
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat',
+        backgroundPositionX: 'center'
+    }
     
 
 });

@@ -19,10 +19,19 @@ function Result(props){
     const [viewSearch, setViewSearch] = React.useState(false);
     const [hotelList, setHotelList] = React.useState();
     const [viewList, setViewList] = React.useState();
+    const [hotelFreeRooms, setHotelFreeRooms] = React.useState();
     const [spinner, setSpinner] = React.useState(true);
     
     React.useEffect(()=>{
-        
+
+        let initialHotelFreeRooms;
+        initialHotelFreeRooms = {
+            from: DateUtil.isDate(initialSearchValues.from) ? DateUtil.formatDate(initialSearchValues.from): '',
+            to: DateUtil.isDate(initialSearchValues.to) ? DateUtil.formatDate(initialSearchValues.to) : '',
+            bed: initialSearchValues.bed
+        }
+        setHotelFreeRooms(initialHotelFreeRooms);
+
         fetch(`/api/Travel?`+ new URLSearchParams({
             HotelName: initialSearchValues.hotel,
             ViewName: initialSearchValues.view,
@@ -126,6 +135,7 @@ function Result(props){
                     <HotelResult
                         key={idGenerator()}
                         info={el}
+                        hotelFreeRooms={hotelFreeRooms}
                     />
                 )
             }
