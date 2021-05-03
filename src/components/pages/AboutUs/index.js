@@ -60,7 +60,7 @@ function AboutUs(props){
             </div> 
             <div className={classes.videoWrapper}>
                 <div className={classes.video}>
-                        <h4 style={{margin: '0px auto 20px auto'}}>Կարճ մեր մասին</h4>
+                        <h4 style={{margin: '0px auto 20px auto'}}>Երևան</h4>
                         <div>
                             <Player
                                 poster="/assets/poster.png"
@@ -71,7 +71,7 @@ function AboutUs(props){
                         </div>
                 </div>
                 <div className={classes.video}>
-                        <h4 style={{margin: '0px auto 20px auto'}}>Կարճ մեր մասին</h4>
+                        <h4 style={{margin: '0px auto 20px auto'}}>Աժդահակ</h4>
                         <div>
                             <Player
                                 loop autoPlay
