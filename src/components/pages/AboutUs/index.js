@@ -63,9 +63,10 @@ function AboutUs(props){
                         <h4 style={{margin: '0px auto 20px auto'}}>Կարճ մեր մասին</h4>
                         <div>
                             <Player
-                                playsInline
                                 poster="/assets/poster.png"
-                                src="photos/a.mp4"
+                                src="photos/Vid.mov"
+                                loop autoPlay
+                                muted
                             />
                         </div>
                 </div>
@@ -73,10 +74,11 @@ function AboutUs(props){
                         <h4 style={{margin: '0px auto 20px auto'}}>Կարճ մեր մասին</h4>
                         <div>
                             <Player
-                                playsInline
+                                loop autoPlay
+                                muted
                                 poster="/assets/poster.png"
-                                src="photos/a.mp4"
-                            />
+                                src="photos/vid2.mov"
+                            /> 
                         </div>
                 </div>
             </div>    
