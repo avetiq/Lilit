@@ -10,6 +10,7 @@ function NavMenu(props){
     //activeClassName avtomat haskanuma vor ejn enq, et style y talisa
     return(
         <Navbar bg="dark" variant="dark" className={classes.main}>
+        <div>
         <Nav>
 
           <NavLink 
@@ -38,8 +39,23 @@ function NavMenu(props){
           >
           Կապ
           </NavLink>
-
+          <NavLink
+          style={{
+            position: 'absolute',
+            right: 8,
+            top: 5
+          }}
+          to='/log-in'
+          activeClassName={classes.active}
+          exact
+          className={classes.linkRight}
+          >
+          Մուտք
+          </NavLink>
         </Nav>
+        
+        
+        </div>
       </Navbar>
     );
 };
