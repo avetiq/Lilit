@@ -7,6 +7,8 @@ import MySlider from "../../MySlider";
 import 'react-gallery-carousel/dist/index.css';
 import nameConverter from '../../../helpers/nameConverter';
 import LocationMap from '../../LocationMap';
+import Book from '../../Book';
+import { Button } from 'react-bootstrap';
 
 
 function Hotel(props){
@@ -16,9 +18,18 @@ function Hotel(props){
 
     const [content, setContent] = React.useState();
     const [spinner, setSpinner] = React.useState(true);
+    const [modal, setModal] = React.useState(false);
     const [images, setImgaes] = React.useState([]);
     const [mapPoints, setMapPoints] = React.useState([]);
     const [freeRooms, setFreeRooms] = React.useState([]);
+
+    const modalClose = (closeOrNot) => {
+        setModal(closeOrNot);
+    }
+
+    const submitBook = () => {
+        setModal(true);
+    }
 
     React.useEffect(()=>{
         
@@ -222,6 +233,12 @@ function Hotel(props){
                             <div style={{alignItems: 'center', display: 'flex', marginLeft: 20}}>
                                 {room.bed} սենյակ {room.money}AMD
                             </div>
+                            <Button 
+                            onClick={submitBook}
+                            variant="success"
+                            >
+                            Գրանցվել
+                            </Button>
                         </div>
                     );
                 })
@@ -231,6 +248,9 @@ function Hotel(props){
 
             {
                 spinner && <Spinner />
+            }
+            {
+                modal && <Book onClose={true} modalClose={() => modalClose()}/>
             }
         </div>
     );
