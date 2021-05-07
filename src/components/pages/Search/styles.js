@@ -34,10 +34,7 @@ const styles = (theme) => ({
     datesInputStyle: {
         marginTop: 12, 
     },
-    inputColor: {
-        backgroundColor: 'white',
-        borderRadius: 4,
-    },
+    
     d2: {
         textAlign: 'center'
     },
@@ -77,7 +74,11 @@ const styles = (theme) => ({
         [theme.breakpoints.down('sm')]: {
             width: '85%',
         },
-    }
+    },
+    inputColor: {
+        backgroundColor: 'white',
+        borderRadius: 4,
+    },
 
 });
 

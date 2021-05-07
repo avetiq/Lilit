@@ -2,8 +2,10 @@ import './App.css';
 import Search from './components/pages/Search';
 import Result from './components/pages/Result';
 import Hotel from './components/pages/Hotel';
+import LogIn from './components/pages/LogIn';
 import ContactUs from './components/pages/ContactUs';
 import AboutUs from './components/pages/AboutUs';
+import Register from './components/pages/Register';
 import View from './components/pages/View';
 import NavMenu from './components/NavMenu';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -57,7 +59,20 @@ function App() {
       exact = {true}
       />
 
-      <Redirect to='/not-found'/>
+      <Route 
+      path='/register'
+      component = {Register}
+      exact = {true}
+      />
+      <Route 
+      path='/log-in'
+      component = {LogIn}
+      exact = {true}
+      />
+
+      <Redirect 
+      to='/not-found'
+      />
       </Switch>
 
     </BrowserRouter>
