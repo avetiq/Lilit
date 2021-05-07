@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import LogInModel from '../../../models/logIn';
-
+import { setCookie } from 'nookies'
 
 function LogIn(props) {
 
@@ -19,7 +19,25 @@ function LogIn(props) {
       logInInfo.userName = userName;
       logInInfo.password = password;
 
-      console.log(logInInfo);
+      fetch(`/api/Auth/login?`+ new URLSearchParams({
+          Username: userName,
+          Password: password
+        }), 
+        {
+          method: 'POST',
+        })
+        .then(response => response.json())
+        .then(json => {
+          
+          setCookie(null, 'username', json.username, {
+            maxAge: 30 * 24 * 60 * 60,
+            path: '/',
+          });
+          window.location.reload();
+        })
+        .catch((error)=>{
+          console.log('catch error', error);
+      });
   }
 
   const handleChangeName = (event) => {

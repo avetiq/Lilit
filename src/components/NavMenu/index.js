@@ -19,6 +19,7 @@ function NavMenu(props){
       //api calls also
 
       destroyCookie(null, 'username');
+      window.location.reload();
     }
 
     return(

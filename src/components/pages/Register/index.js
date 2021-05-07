@@ -63,27 +63,7 @@ function Register(props) {
         return;
       }
 
-    //     fetch(`/api/Auth/register?`+ new URLSearchParams({
-    //       Username: userName,
-    //       Passportid: passportid,
-    //       Password: password,
-    //       Name: name,
-    //       Surname: surname,
-    //       Gender: gender,
-    //       Email: email,
-    //       City: city,
-    //       CreditCardNumber: creditCardNumber,
-    //       Country: country
-    //   }), {
-    //       method: 'POST',
-          
-    //   }).then(response => response.json())
   
-    //   // Displaying results to console
-    //   .then(json => console.log(json))
-    //   .catch((error)=>{
-    //     console.log('catch error', error);
-    // });
 
     const requestOptions = {
       method: 'POST',
