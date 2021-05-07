@@ -85,8 +85,26 @@ function Register(props) {
     //     console.log('catch error', error);
     // });
 
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        "username": userName,
+        "passportid": passportid,
+        "password": password,
+        "name": name,
+        "surname": surname,
+        "gender": gender,
+        "email": email,
+        "city": city,
+        "creditCardNumber": creditCardNumber,
+        "country": country
+      })
+  };
+  fetch('/api/Auth/register', requestOptions)
+      .then(response => response.json())
+      .then(data => console.log(data));
 
-    
 
       
   }
