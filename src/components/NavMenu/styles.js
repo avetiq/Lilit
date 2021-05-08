@@ -27,6 +27,12 @@ const styles = (theme) => ({
             color: 'white'
         }
     },
+
+    signUp: {
+        "&:active": {
+            backgroundColor: "initial"
+        }
+    }
     
 });
 
