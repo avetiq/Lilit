@@ -17,8 +17,8 @@ import DateUtil from '../../helpers/DateUtil';
 function SearchHotel(props) {
     
     
-    const [dateFrom, setDateFrom] = React.useState(props.from ? props.from : null);
-    const [dateTo, setDateTo] = React.useState(props.to ? props.to : null);
+    const [dateFrom, setDateFrom] = React.useState(props.from ? DateUtil.formatDate(props.from) : null);
+    const [dateTo, setDateTo] = React.useState(props.to ? DateUtil.formatDate(props.to) : null);
     const [hotel, setHotel] = React.useState(props.hotel ? props.hotel : '');
     const [bedQuantity, setBedQuantity] = React.useState(props.bed ? props.bed : '');
     const [district, setDistrict] = React.useState(props.district ? props.district : '');
@@ -43,12 +43,13 @@ function SearchHotel(props) {
     const handleDateChange = (date, isFirst) => {
         
         if(isFirst){
-          setDateFrom(date);
+          setDateFrom(DateUtil.formatDate(date));
         }else{
-          setDateTo(date);
+          setDateTo(DateUtil.formatDate(date));
         }
       };
 
+      
     return (
         <div className={classes.main}>
             <TextField
@@ -135,7 +136,15 @@ function SearchHotel(props) {
             </div>
             <div className={classes.btnDiv}>
               <Button 
-                  
+                  onClick={() => {
+                    props.HotelParent({
+                      hotel,
+                      bedQuantity,
+                      district,
+                      dateTo,
+                      dateFrom
+                    });
+                  }}
                   variant="success"
                   >
                   Search

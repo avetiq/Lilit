@@ -13,18 +13,23 @@ const styles = (theme) => ({
         borderLeft: '1px solid red',
         paddingLeft: 52
     },
-    female: {
-        backgroundImage: 'url(../../../photos/vika.png)',
+    img: {
         backgroundSize: 'contain',
-        height: '100%',
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
+        height: 170
     },
-    male: {
-        backgroundImage: 'url(../../../photos/ashot.jpg)',
-        backgroundSize: 'contain',
-        height: '100%',
-        backgroundRepeat: 'no-repeat'
+    resetPwd: {
+        borderBottom: '1px solid gray', 
+        paddingBottom: 20,
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column'
     },
+    changeOtherInfo: {
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column'
+    }
 
 });
 
