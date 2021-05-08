@@ -1,10 +1,11 @@
 import React from 'react';
-import { Container, TextField} from '@material-ui/core';
+import { Container, TextField, FormControl, Select, InputLabel} from '@material-ui/core';
 import { Button } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
-import RegisterModel from '../../../models/registration';
+import {validateEmail, validate16Number} from '../../../helpers/validates';
+import idGenerator from '../../../helpers/idGenerator';
 
 
 function Register(props) {
@@ -21,36 +22,70 @@ function Register(props) {
   const [city, setCity] = React.useState('');
   const [creditCardNumber, setCreditCardNumber] = React.useState('');
   const [country, setCountry] = React.useState('');
-  const [errorMail, setErrorMail] = React.useState('');
-  const [errorCreditCard, setErrorCreditCard] = React.useState('');
+  const [error, setError] = React.useState('');
 
-  const validateEmail = (email) => {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-}
-
-const validate16Number = (creditCardNumber) => {
-  const re = /^\d{16}$/;
-  return re.test(String(creditCardNumber).toLowerCase());
-}
+  
   
   const SubmitRegistration = () => {
-      const RegistrationInfo = new RegisterModel();
-      RegistrationInfo.userName = userName;
-      RegistrationInfo.password = password;
-      RegistrationInfo.passportid = passportid;
-      if(!validateEmail(email)){
-        setErrorMail('Ձեր էլ-փոստի հասցեն սխալ է:');
-      }
+      
+      setError('');
       if(creditCardNumber.length < 16){
-        setErrorCreditCard(' Ձեր բանկային քարտի համարը սխալ է:');
+        setError(' Ձեր բանկային քարտի համարը սխալ է:');
+        return;
       }
       if(!validate16Number(creditCardNumber)){
-        setErrorCreditCard(' Ձեր բանկային քարտի համարը սխալ է, պետք է թվեր լինեն:');
+        setError('Ձեր բանկային քարտի համարը սխալ է, պետք է լինի 16 թիվ:');
+        return;
       }
-      
+      if(!validateEmail(email)){
+        setError('Ձեր էլ-փոստի հասցեն սխալ է:');
+        return;
+      }
+      if(surname.length < 5){
+        setError('Ազգանուն դաշտը պիտի լինի նվազագույնը 5 սիմվոլ:');
+        return;
+      }
+      if(name.length < 5){
+        setError('Անուն դաշտը պիտի լինի նվազագույնը 5 սիմվոլ:');
+        return;
+      }
+      if(passportid.length < 8){
+        setError('Անձնագրի ID դաշտը պիտի լինի նվազագույնը 8 սիմվոլ:');
+        return;
+      }
+      if(password.length < 8){
+        setError('Գաղտնաբառ դաշտը պիտի լինի նվազագույնը 8 սիմվոլ:');
+        return;
+      }
+      if(userName.length < 6){
+        setError('Մուտքանուն դաշտը պիտի լինի նվազագույնը 6 սիմվոլ:');
+        return;
+      }
 
-      console.log(RegistrationInfo);
+  
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        "username": userName,
+        "passportid": passportid,
+        "password": password,
+        "name": name,
+        "surname": surname,
+        "gender": gender,
+        "email": email,
+        "city": city,
+        "creditCardNumber": creditCardNumber,
+        "country": country
+      })
+  };
+  fetch('/api/Auth/register', requestOptions)
+      .then(response => response.json())
+      .then(data => console.log(data));
+
+
+      
   }
 
   const handleChangeName = (event) => {
@@ -102,12 +137,14 @@ const validate16Number = (creditCardNumber) => {
             </div>
           <Container component="main" maxWidth="sm" className={classes.container}> 
             <div className={classes.errorDiv}> 
-              <p className={classes.error}>{errorMail ? errorMail : ''}</p>
-              <p className={classes.error}>{errorCreditCard ? errorCreditCard : ''}</p>
+              <p className={classes.error}>{error ? error : ''}</p>
             </div>
             <TextField
               variant="outlined"
               fullWidth
+              inputProps={{
+                maxLength: 20,
+              }}
               value={userName}
               name="userName"
               label='Մուտքանուն'
@@ -118,6 +155,9 @@ const validate16Number = (creditCardNumber) => {
             <TextField
               variant="outlined"
               fullWidth
+              inputProps={{
+                maxLength: 16,
+              }}
               type="password"
               value={password}
               name="password"
@@ -129,6 +169,9 @@ const validate16Number = (creditCardNumber) => {
             <TextField
               variant="outlined"
               fullWidth
+              inputProps={{
+                maxLength: 10,
+              }}
               value={passportid}
               name="passportid"
               label='Անձնագրի ID'
@@ -139,6 +182,9 @@ const validate16Number = (creditCardNumber) => {
             <TextField
               variant="outlined"
               fullWidth
+              inputProps={{
+                maxLength: 20,
+              }}
               value={name}
               name="name"
               label='Անուն'
@@ -149,6 +195,9 @@ const validate16Number = (creditCardNumber) => {
             <TextField
               variant="outlined"
               fullWidth
+              inputProps={{
+                maxLength: 20,
+              }}
               value={surname}
               name="surname"
               label='Ազգանուն'
@@ -156,23 +205,36 @@ const validate16Number = (creditCardNumber) => {
               className={classes.inputColor}
               style={{"marginTop": 12}}
             />
-            <TextField
-              variant="outlined"
-              fullWidth
+            
+            <FormControl variant="outlined" className={classes.formControl} style={{"marginTop": 12}}>
+            <InputLabel htmlFor="outlined-age-native-simple">Սեռ</InputLabel>
+            <Select
+              native
               value={gender}
-              name="gender"
-              label='Սեռ'
               onChange={handleChangeName}
-              className={classes.inputColor}
-              style={{"marginTop": 12}}
-            />
+              label="Սեռ"
+              name="gender"
+              className={classes.selectWidth}
+            >
+              <option aria-label="None" value="" />
+              {['F', 'M'].map((maleType) => {
+                return (
+                    <option key={idGenerator()} value={maleType}>{maleType}</option>
+                  )
+                })
+              }
+            
+            </Select>
+          </FormControl>
 
             <TextField
               variant="outlined"
               fullWidth
+              inputProps={{
+                maxLength: 30,
+              }}
               type="email"
               value={email}
-              error={errorMail !== '' ? true : false}
               name="email"
               label='Էլ-փոստի հասցե'
               onChange={handleChangeName}
@@ -182,6 +244,9 @@ const validate16Number = (creditCardNumber) => {
             <TextField
               variant="outlined"
               fullWidth
+              inputProps={{
+                maxLength: 20,
+              }}
               value={city}
               name="city"
               label='Քաղաք'
@@ -192,6 +257,9 @@ const validate16Number = (creditCardNumber) => {
             <TextField
               variant="outlined"
               fullWidth
+              inputProps={{
+                maxLength: 30,
+              }}
               value={country}
               name="country"
               label='Երկիր'
@@ -202,7 +270,9 @@ const validate16Number = (creditCardNumber) => {
             <TextField
               variant="outlined"
               fullWidth
-              error={errorCreditCard !== '' ? true : false}
+              inputProps={{
+                maxLength: 16,
+              }}
               value={creditCardNumber}
               name="creditCardNumber"
               label='Բանկային քարտի համար XXXX XXXX XXXX XXXX'

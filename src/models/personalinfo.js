@@ -1,7 +1,6 @@
-class RegistrationModel{
+class PersonalInfoModel{
 
     Username: String;
-    Password: String;
     Passportid: String;
     Name: String;
     Surname: String;
@@ -12,6 +11,6 @@ class RegistrationModel{
     Country: String;
 };
 
-export default RegistrationModel;
+export default PersonalInfoModel;
 
 

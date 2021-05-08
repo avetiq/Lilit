@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://lilitarzumanyan1-001-site1.ftempurl.com',
+      target: 'http://lilitarzumanyan3-001-site1.dtempurl.com',
       changeOrigin: true,
     })
   );

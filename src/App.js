@@ -6,6 +6,7 @@ import LogIn from './components/pages/LogIn';
 import ContactUs from './components/pages/ContactUs';
 import AboutUs from './components/pages/AboutUs';
 import Register from './components/pages/Register';
+import PersonalPage from './components/pages/PersonalPage';
 import View from './components/pages/View';
 import NavMenu from './components/NavMenu';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -69,7 +70,12 @@ function App() {
       component = {LogIn}
       exact = {true}
       />
-
+      <Route 
+      path='/personal-page'
+      component = {PersonalPage}
+      exact = {true}
+      />
+      
       <Redirect 
       to='/not-found'
       />

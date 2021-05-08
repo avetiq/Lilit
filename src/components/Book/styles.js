@@ -50,7 +50,7 @@ const styles = (theme) => ({
       display: 'inline-block'
   },
   error: {
-      color: 'red',
+      color: 'white',
       fontSize: 12,
       margin: 0,
       [theme.breakpoints.down('sm')]: {

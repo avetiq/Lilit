@@ -1,13 +1,31 @@
 
 import React from 'react';
-import {Navbar, Nav} from 'react-bootstrap';
+import {Navbar, Nav, Dropdown, Button} from 'react-bootstrap';
 import {NavLink} from 'react-router-dom';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
+import { parseCookies, destroyCookie  } from 'nookies'
 
 function NavMenu(props){
   const {classes} = props;
     //activeClassName avtomat haskanuma vor ejn enq, et style y talisa
+    
+    const getRightPartName = () => {
+      const cookies = parseCookies();
+      return cookies.username ? cookies.username : 'Մուտք';
+    }
+
+    const logOut = () => {
+      //api calls also
+
+      destroyCookie(null, 'username');
+      var url = window.location.pathname;
+      url = url.replace(/[a-z\/ \-]*/, '/');
+      console.log(url);
+      window.location.assign(url)
+      
+    }
+
     return(
         <Navbar bg="dark" variant="dark" className={classes.main}>
         <div>
@@ -39,19 +57,46 @@ function NavMenu(props){
           >
           Կապ
           </NavLink>
-          <NavLink
-          style={{
+          
+          <Dropdown style={{
             position: 'absolute',
-            right: 8,
+            right: 18,
             top: 5
-          }}
-          to='/log-in'
-          activeClassName={classes.active}
-          exact
-          className={classes.linkRight}
-          >
-          Մուտք
-          </NavLink>
+          }}>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            Կարգավորումներ
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            {getRightPartName() === 'Մուտք' ?
+             <Dropdown.Item >
+             <NavLink
+              to='/log-in'
+              exact
+              >
+              Մուտք
+              </NavLink>
+              </Dropdown.Item> :
+              <>
+             <Dropdown.Item >
+             <NavLink
+              to='/personal-page'
+              exact
+              >
+              Անձնական էջ
+              </NavLink>
+             </Dropdown.Item>
+             <Dropdown.Item >
+             <Button
+             onClick={logOut}
+             >
+             Ելք
+             </Button>
+             </Dropdown.Item>
+             </>
+          }
+          </Dropdown.Menu>
+        </Dropdown>
         </Nav>
         
         

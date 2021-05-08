@@ -38,7 +38,12 @@ const styles = (theme) => ({
         width: '100%',
         height: 50,
         display: 'flex',
-        marginBottom: 10
+        marginBottom: 10,
+        justifyContent: 'space-between'
+    },
+    dates: {
+        display: 'flex',
+        justifyContent: 'space-between',
     },
     bedImg: {
         width: 50,
