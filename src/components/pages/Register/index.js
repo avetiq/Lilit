@@ -4,7 +4,6 @@ import { Button } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
-import RegisterModel from '../../../models/registration';
 import {validateEmail, validate16Number} from '../../../helpers/validates';
 import idGenerator from '../../../helpers/idGenerator';
 

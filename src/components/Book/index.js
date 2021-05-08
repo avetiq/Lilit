@@ -5,78 +5,77 @@ import {validateEmail, validate16Number} from '../../helpers/validates';
 import { Container, TextField} from '@material-ui/core';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import DateUtil from '../../helpers/DateUtil';
+import { parseCookies } from 'nookies'
+import PersonalInfoModel from '../../models/personalinfo';
 
 function EditTaskModal(props){
       
-        const {onClose, classes, modalClose} = props;
+        const {classes, modalClose, userInfo, bookInfo, content, SearchFreeRooms} = props;
+        
+        const [personCreditCardNumber, setPersonCreditCardNumber] = React.useState(userInfo.CreditCardNumber);
+        const [error, setError] = React.useState(null);
+        const [bookModel, setBookModel] = React.useState({
+          from: bookInfo.from,
+          to: bookInfo.to,
+          hotelName: content.name,
+          district: content.district,
+          money: DateUtil.dateDifference(bookInfo.from, bookInfo.to)*bookInfo.money,
+          bedQuantity: bookInfo.bedQuantity,
+          oneNightMoney: bookInfo.money,
+          userName: userInfo.Username
+        });
 
-        const [userName, setUserName] = React.useState('');
-        const [passportid, setPassportid] = React.useState('');
-        const [name, setName] = React.useState('');
-        const [surname, setSurname] = React.useState('');
-        const [gender, setGender] = React.useState('');
-        const [email, setEmail] = React.useState('');
-        const [city, setCity] = React.useState('');
-        const [creditCardNumber, setCreditCardNumber] = React.useState('');
-        const [country, setCountry] = React.useState('');
-        const [errorMail, setErrorMail] = React.useState('');
-        const [errorCreditCard, setErrorCreditCard] = React.useState('');
 
         const onSave = () => {
-            console.log('save')
-            //modalClose(false);
-        }
-        
-        const SubmitRegistration = () => {
-            
-            setErrorMail('');
-            setErrorCreditCard('');
-            if(!validateEmail(email)){
-                setErrorMail('Ձեր էլ-փոստի հասցեն սխալ է:');
-            }
-            if(creditCardNumber.length < 16){
-                setErrorCreditCard(' Ձեր բանկային քարտի համարը սխալ է:');
-            }
-            if(!validate16Number(creditCardNumber)){
-                setErrorCreditCard(' Ձեր բանկային քարտի համարը սխալ է, պետք է թվեր լինեն:');
-            }
-            
+          setError(null);
+          if(personCreditCardNumber.length < 16){
+            setError('Ձեր բանկային քարտի համարը սխալ է:');
+            return;
+          }
+          if(!validate16Number(personCreditCardNumber)){
+            setError('Ձեր բանկային քարտի համարը սխալ է, պետք է լինի 16 թիվ:');
+            return;
+          }
+          setBookModel({
+            ...bookModel,
+            personCreditCardNumber
+          })
 
+            const requestOptions = {
+              method: 'POST',
+              headers: { 
+                'Content-Type': 'application/json',
+                'userName': userInfo.Username
+              },
+              body: JSON.stringify({
+                "personCreditCardNumber": personCreditCardNumber,
+                "from": bookModel.from,
+                "to": bookModel.to,
+                "hotelName": bookModel.hotelName,
+                "district": bookModel.district,
+                "money": bookModel.money,
+                "bedQuantity": bookModel.bedQuantity,
+                "oneNightMoney": bookModel.oneNightMoney,
+                "userName": bookModel.userName
+              })
+            };
+              // fetch('/api/Travel/Book', requestOptions)
+              //     .then(response => response.json())
+              //     .then(data => console.log(data));
+            alert('Շնորհակալություն, բարեհաջող ամրագրվեց ձեր սենյակը')
+            SearchFreeRooms();
+            modalClose();
         }
 
-        const handleChangeName = (event) => {
+        const handleChangeCreditCard = (event) => {
             const insertedText = event.target.value;
-            switch(event.target.name){
-            case "userName":
-                setUserName(insertedText);
-                break;
-            case "passportid" : 
-                setPassportid(insertedText);
-                break;
-            case "name":
-                setName(insertedText);
-                break;
-            case "surname" : 
-                setSurname(insertedText);
-                break;
-            case "gender" : 
-                setGender(insertedText);
-                break;
-            case "email":
-                setEmail(insertedText);
-                break;
-            case "city" : 
-                setCity(insertedText);
-                break;
-            case "creditCardNumber" : 
-                setCreditCardNumber(insertedText);
-                break;
-            case "country" : 
-                setCountry(insertedText);
-                break;
-            default: 
-            break;
-            }
+            setPersonCreditCardNumber(insertedText);
         }
 
         return(
@@ -89,7 +88,10 @@ function EditTaskModal(props){
         >
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
-              Ամրագրել համարը
+              
+                Ամրագրել համարը
+              <h6>Կարող եք միայն փոփոխել քարտի համարը</h6>
+            
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -97,40 +99,44 @@ function EditTaskModal(props){
           <TextField
               variant="outlined"
               fullWidth
-              value={passportid}
-              name="passportid"
-              label='Անձնագրի ID'
-              onChange={handleChangeName}
+              disabled
+              value={bookModel.userName}
+              name="userName"
+              label='Մուտքանուն'
               className={classes.inputColor}
               style={{"marginTop": 12}}
             />
             <TextField
               variant="outlined"
               fullWidth
-              value={name}
-              name="name"
-              label='Անուն'
-              onChange={handleChangeName}
+              inputProps={{
+                maxLength: 16,
+              }}
+              value={personCreditCardNumber}
+              name="personCreditCardNumber"
+              label='Բանկային քարտի համար XXXX XXXX XXXX XXXX'
+              onChange={handleChangeCreditCard}
+              className={classes.inputColor}
+              style={{"marginTop": 12}}
+            />
+            <span style={{fontSize: 10, color: 'red'}}>{error ? error : ''}</span>
+            <TextField
+              variant="outlined"
+              fullWidth
+              disabled
+              value={bookModel.hotelName}
+              name="hotelName"
+              label='Հյուրանոցի անվանում'
               className={classes.inputColor}
               style={{"marginTop": 12}}
             />
             <TextField
               variant="outlined"
               fullWidth
-              value={surname}
-              name="surname"
-              label='Ազգանուն'
-              onChange={handleChangeName}
-              className={classes.inputColor}
-              style={{"marginTop": 12}}
-            />
-            <TextField
-              variant="outlined"
-              fullWidth
-              value={gender}
-              name="gender"
-              label='Սեռ'
-              onChange={handleChangeName}
+              disabled
+              value={bookModel.district}
+              name="district"
+              label='Մարզ'
               className={classes.inputColor}
               style={{"marginTop": 12}}
             />
@@ -138,48 +144,61 @@ function EditTaskModal(props){
             <TextField
               variant="outlined"
               fullWidth
-              type="email"
-              value={email}
-              error={errorMail !== '' ? true : false}
-              name="email"
-              label='Էլ-փոստի հասցե'
-              onChange={handleChangeName}
+              disabled
+              value={bookModel.oneNightMoney}
+              name="oneNightMoney"
+              label='Մեկ գիշերվա արժեքը'
               className={classes.inputColor}
               style={{"marginTop": 12}}
             />
             <TextField
               variant="outlined"
+              disabled
               fullWidth
-              value={city}
-              name="city"
-              label='Քաղաք'
-              onChange={handleChangeName}
+              value={bookModel.bedQuantity}
+              name="bedQuantity"
+              label='Տեղերի քանանկը'
               className={classes.inputColor}
               style={{"marginTop": 12}}
             />
-            <TextField
-              variant="outlined"
-              fullWidth
-              value={country}
-              name="country"
-              label='Երկիր'
-              onChange={handleChangeName}
-              className={classes.inputColor}
-              style={{"marginTop": 12}}
-            />
-            <TextField
-              variant="outlined"
-              fullWidth
-              error={errorCreditCard !== '' ? true : false}
-              value={creditCardNumber}
-              name="creditCardNumber"
-              label='Բանկային քարտի համար XXXX XXXX XXXX XXXX'
-              onChange={handleChangeName}
-              className={classes.inputColor}
-              style={{"marginTop": 12}}
-            />
+                       
+            
+            <div className={classes.dates}>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  disableToolbar
+                  className={`${classes.inputColor} ${classes.datesInputStyle}`}
+                  variant="inline"
+                  format="dd/MM/yyyy"
+                  label="Սկսած"
+                  disabled
+                  value={bookInfo.from}
+                  name="dateFrom"
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+              
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  disableToolbar
+                  className={`${classes.inputColor} ${classes.datesInputStyle}`}
+                  variant="inline"
+                  format="dd/MM/yyyy"
+                  label="Մինչև"
+                  disabled
+                  name="dateTo"
+                  value={bookInfo.to}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+            </div> 
           </Modal.Body>
           <Modal.Footer>
+            <p>{bookModel.money}դրամ </p>
             <Button 
             onClick={onSave}
             variant='success'

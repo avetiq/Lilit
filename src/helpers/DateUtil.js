@@ -19,7 +19,7 @@ class DateUtil {
 
   static endOfWeek = (date) => moment(date).endOf('isoWeek');
 
-  static isSameMonth = (date1, date2) => moment(date1).isSame(date2, 'month');
+  static dateDifference = (date1, date2) => moment(new Date(date2)).diff(moment(new Date(date1)), 'days');
 
   static isSameDay = (date1, date2) => moment(date1).isSame(date2, 'D');
 

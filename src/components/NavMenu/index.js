@@ -4,7 +4,7 @@ import {Navbar, Nav, Dropdown, Button} from 'react-bootstrap';
 import {NavLink} from 'react-router-dom';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
-import { parseCookies, setCookie, destroyCookie  } from 'nookies'
+import { parseCookies, destroyCookie  } from 'nookies'
 
 function NavMenu(props){
   const {classes} = props;
@@ -19,7 +19,11 @@ function NavMenu(props){
       //api calls also
 
       destroyCookie(null, 'username');
-      window.location.reload();
+      var url = window.location.pathname;
+      url = url.replace(/[a-z\/ \-]*/, '/');
+      console.log(url);
+      window.location.assign(url)
+      
     }
 
     return(
