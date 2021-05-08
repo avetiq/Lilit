@@ -253,7 +253,7 @@ console.log(userInfo)
                 <div key={idGenerator()} className={classes.oneReserve}>
                   <div className={classes.img} style={{backgroundImage: `url(${res.photoSource})`}} />
                 </div>
-              );
+              )
             } 
                   
             </div>
