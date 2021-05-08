@@ -10,6 +10,7 @@ import PersonalInfoModel from '../../../models/personalinfo';
 import ReservedListModel from '../../../models/reservedList';
 import { validate16Number} from '../../../helpers/validates';
 import idGenerator from '../../../helpers/idGenerator';
+import DateUtil from '../../../helpers/DateUtil';
 
 function PersonalPage(props) {
 
@@ -155,6 +156,7 @@ console.log(userInfo)
         
           <div className={classes.editInfo}>
           <h4>Խմբագրել անձնական տյալները</h4>
+          <h4>{userInfo && userInfo.Name + ' ' + userInfo.Surname}</h4>
             <div className={classes.resetPwd}>
               <h5 style={{paddingTop: 30}}>Փոխել գաղտնաբառը</h5>
               <span style={{color: 'red', fontSize: 10}}>{errorPwd}</span>
@@ -246,14 +248,24 @@ console.log(userInfo)
             </div>
           </div>
           <div className={classes.showInfo}>
-            <h4>{userInfo && userInfo.Name + ' ' + userInfo.Surname}</h4>
+            <h3 style={{margin: '0 auto', marginBottom: 30}}>Ձեր ամրագրումները</h3>
             <div className={classes.reservedList}>
             {reservedList && 
-              reservedList.map((res) => 
+              reservedList.map((res) => {
+                var imgUrl = res.photoSource.split('\\').join('/');
+                return (
                 <div key={idGenerator()} className={classes.oneReserve}>
-                  <div className={classes.img} style={{backgroundImage: `url(${res.photoSource})`}} />
+                  <div className={classes.img} style={{backgroundImage: `url(${imgUrl})`}} />
+                  <div className={classes.infoMoney}>
+                    <h5>{res.hotelName}</h5>
+                    <h6>Հասցե {res.address}</h6>
+                    <h6>Հեռ. {res.phone}</h6>
+                    <h5>{DateUtil.formatDate(res.from)}-ից մինչև {DateUtil.formatDate(res.to)}</h5>
+                    <h6>{`${res.roomType} համար ${res.allPrice}դրամ`}</h6>
+                  </div>
                 </div>
-              )
+                );
+              })
             } 
                   
             </div>
