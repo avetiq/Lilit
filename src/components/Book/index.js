@@ -65,9 +65,9 @@ function EditTaskModal(props){
                 "userName": bookModel.userName
               })
             };
-              // fetch('/api/Travel/Book', requestOptions)
-              //     .then(response => response.json())
-              //     .then(data => console.log(data));
+               fetch('/api/Travel/Book', requestOptions)
+                   .then(response => response.json())
+                   .then(data => console.log(data));
             alert('Շնորհակալություն, բարեհաջող ամրագրվեց ձեր սենյակը')
             SearchFreeRooms();
             modalClose();
