@@ -25,7 +25,7 @@ function Hotel(props){
 
     const cookies = parseCookies();
     const isLogedIn = cookies.username !== undefined ? true : false;
-
+console.log(initialSearchValues.from)
     const [bookInfo, setBookInfo] = React.useState({
         id: initialSearchValues.id,
         from: initialSearchValues.from ? initialSearchValues.from : null,

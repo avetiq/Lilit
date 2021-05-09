@@ -142,14 +142,11 @@ function Result({ classes }) {
 
   useEffect(() => {
     const initialHotelFreeRooms = {
-      from: DateUtil.isDate(initialSearchValues.from)
-        ? DateUtil.formatDate(initialSearchValues.from)
-        : "",
-      to: DateUtil.isDate(initialSearchValues.to)
-        ? DateUtil.formatDate(initialSearchValues.to)
-        : "",
+      from: DateUtil.formatDate(initialSearchValues.from),
+      to: DateUtil.formatDate(initialSearchValues.to),
       bed: initialSearchValues.bed,
     };
+    console.log(initialHotelFreeRooms)
     setHotelFreeRooms(initialHotelFreeRooms);
 
     fetch(
