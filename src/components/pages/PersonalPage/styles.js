@@ -11,20 +11,38 @@ const styles = (theme) => ({
     showInfo: {
         width: '50%',
         borderLeft: '1px solid red',
-        paddingLeft: 52
+        paddingLeft: 52,
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column'
     },
-    female: {
-        backgroundImage: 'url(../../../photos/vika.png)',
+    img: {
         backgroundSize: 'contain',
-        height: '100%',
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
+        height: 170,
+        width: '34%',
     },
-    male: {
-        backgroundImage: 'url(../../../photos/ashot.jpg)',
-        backgroundSize: 'contain',
-        height: '100%',
-        backgroundRepeat: 'no-repeat'
+    resetPwd: {
+        borderBottom: '1px solid gray', 
+        paddingBottom: 20,
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column'
     },
+    changeOtherInfo: {
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column'
+    },
+    oneReserve: {
+        display: 'flex',
+        border: '1px solid gray',
+        marginBottom: 40,
+        padding: 15
+    },
+    infoMoney: {
+        marginLeft: 30
+    }
 
 });
 

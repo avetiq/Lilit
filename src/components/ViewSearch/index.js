@@ -63,7 +63,7 @@ function ViewSearch(props) {
             
             <div className={classes.btnDiv}>
               <Button 
-                  
+                  onClick={()=>props.ViewParent({view, district})}
                   variant="success"
                   >
                   Search

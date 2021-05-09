@@ -1,44 +1,45 @@
-import React from 'react';
-import SearchHotel from '../../SearchHotel';
-import ViewSearch from '../../ViewSearch';
-import HotelResult from '../../HotelResult';
-import ViewResult from '../../ViewResult';
-import styles from './styles';
-import { withStyles } from '@material-ui/core/styles';
-import { Button } from 'react-bootstrap';
-import searchResult from '../../../models/searchResult';
-import DateUtil from '../../../helpers/DateUtil';
-import idGenerator from '../../../helpers/idGenerator';
-import Spinner from '../../Spinner';
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router";
+import SearchHotel from "../../SearchHotel";
+import ViewSearch from "../../ViewSearch";
+import HotelResult from "../../HotelResult";
+import ViewResult from "../../ViewResult";
+import styles from "./styles";
+import { withStyles } from "@material-ui/core/styles";
+import { Button } from "react-bootstrap";
+import searchResult from "../../../models/searchResult";
+import DateUtil from "../../../helpers/DateUtil";
+import idGenerator from "../../../helpers/idGenerator";
+import objectFromSearchParams from "../../../helpers/objectFromSearchParams";
+import Spinner from "../../Spinner";
 
-function Result(props){
-    
-    const {classes} = props;
-    const initialSearchValues = props.location.query;
-    const [hotelSearch, setHotelSearch] = React.useState(true);
-    const [viewSearch, setViewSearch] = React.useState(false);
-    const [hotelList, setHotelList] = React.useState();
-    const [viewList, setViewList] = React.useState();
-    const [hotelFreeRooms, setHotelFreeRooms] = React.useState();
-    const [spinner, setSpinner] = React.useState(true);
-    
-    React.useEffect(()=>{
 
-        let initialHotelFreeRooms;
-        initialHotelFreeRooms = {
-            from: DateUtil.isDate(initialSearchValues.from) ? DateUtil.formatDate(initialSearchValues.from): '',
-            to: DateUtil.isDate(initialSearchValues.to) ? DateUtil.formatDate(initialSearchValues.to) : '',
-            bed: initialSearchValues.bed
-        }
-        setHotelFreeRooms(initialHotelFreeRooms);
+function Result({ classes }) {
+  
+  const [hotelSearch, setHotelSearch] = useState(true);
+  const [viewSearch, setViewSearch] = useState(false);
+  const [hotelList, setHotelList] = useState();
+  const [viewList, setViewList] = useState();
+  const [hotelFreeRooms, setHotelFreeRooms] = useState();
+  const [spinner, setSpinner] = useState(true);
 
+  const { search } = useLocation();
+
+  const initialSearchValues = objectFromSearchParams(search);
+
+  console.log(initialSearchValues);
+
+  const [district, setDistrict] = React.useState(initialSearchValues.district);
+
+    const HotelParent = (hotelSearchParams) => {
+        setDistrict(hotelSearchParams.district ? hotelSearchParams.district : '');
+        setSpinner(true);
         fetch(`/api/Travel?`+ new URLSearchParams({
-            HotelName: initialSearchValues.hotel,
-            ViewName: initialSearchValues.view,
-            District: initialSearchValues.district,
-            From: initialSearchValues.from ? DateUtil.formatDate(initialSearchValues.from) : '',
-            To: initialSearchValues.to ? DateUtil.formatDate(initialSearchValues.to) : '',
-            BedQuantity: initialSearchValues.bed ? parseInt(initialSearchValues.bed) : '',
+            HotelName: hotelSearchParams.hotel,
+            District: hotelSearchParams.district ? hotelSearchParams.district : '',
+            From: hotelSearchParams.dateFrom ? hotelSearchParams.dateFrom : '',
+            To: hotelSearchParams.dateTo ? hotelSearchParams.dateTo : '',
+            BedQuantity: hotelSearchParams.bedQuantity ? parseInt(hotelSearchParams.bedQuantity) : '',
         }), {
             method: 'GET',
             
@@ -83,8 +84,133 @@ function Result(props){
             .catch((error)=>{
                 console.log('catch error', error);
             });
+    }
 
-    }, [])
+    const ViewParent = (viewSearchParams) => {
+        setSpinner(true);
+        setDistrict(viewSearchParams.district ? viewSearchParams.district : '');
+
+        fetch(`/api/Travel?`+ new URLSearchParams({
+            
+            ViewName: viewSearchParams.view,
+            District: viewSearchParams.district,
+            }), {
+            method: 'GET',
+            
+        })
+            .then(async (response) => {
+                const res = await response.json();
+
+                if(response.status >=400 && response.status < 600){
+                    if(res.error){
+                        throw res.error;
+                    }
+                    else {
+                        throw new Error('Something went wrong!');
+                    }
+                }
+                return res;
+            })
+            .then((res) =>{
+                const dataHotel: Array<searchResult> = [];
+                const dataView: Array<searchResult> = [];
+                res.forEach(resElement => {
+                    const current = new searchResult();
+                    current.id = resElement.id;
+                    current.name = resElement.name;
+                    current.district = resElement.district;
+                    current.photoSource = resElement.photoSource;
+                    current.longInfo = resElement.longInfo;
+                    current.latitude = resElement.latitude;
+                    current.longitude = resElement.longitude;
+                    if(resElement.isHotel){
+                        dataHotel.push(current);
+                    }else{
+                        dataView.push(current);
+                    }
+                    
+                });
+                
+                setHotelList(dataHotel);
+                setViewList(dataView);
+                setSpinner(false);
+            })
+            .catch((error)=>{
+                console.log('catch error', error);
+            });
+    }
+
+  useEffect(() => {
+    const initialHotelFreeRooms = {
+      from: DateUtil.isDate(initialSearchValues.from)
+        ? DateUtil.formatDate(initialSearchValues.from)
+        : "",
+      to: DateUtil.isDate(initialSearchValues.to)
+        ? DateUtil.formatDate(initialSearchValues.to)
+        : "",
+      bed: initialSearchValues.bed,
+    };
+    setHotelFreeRooms(initialHotelFreeRooms);
+
+    fetch(
+      `/api/Travel?` +
+        new URLSearchParams({
+          HotelName: initialSearchValues.hotel,
+          ViewName: initialSearchValues.view,
+          District: initialSearchValues.district,
+          From: initialSearchValues.from
+            ? DateUtil.formatDate(initialSearchValues.from)
+            : "",
+          To: initialSearchValues.to
+            ? DateUtil.formatDate(initialSearchValues.to)
+            : "",
+          BedQuantity: initialSearchValues.bed
+            ? parseInt(initialSearchValues.bed)
+            : "",
+        }),
+      {
+        method: "GET",
+      }
+    )
+      .then(async (response) => {
+        const res = await response.json();
+
+        if (response.status >= 400 && response.status < 600) {
+          if (res.error) {
+            throw res.error;
+          } else {
+            throw new Error("Something went wrong!");
+          }
+        }
+        return res;
+      })
+      .then((res) => {
+        const dataHotel = [];
+        const dataView = [];
+        res.forEach((resElement) => {
+          const current = new searchResult();
+          current.id = resElement.id;
+          current.name = resElement.name;
+          current.district = resElement.district;
+          current.photoSource = resElement.photoSource;
+          current.longInfo = resElement.longInfo;
+          current.latitude = resElement.latitude;
+          current.longitude = resElement.longitude;
+          if (resElement.isHotel) {
+            dataHotel.push(current);
+          } else {
+            dataView.push(current);
+          }
+        });
+
+        setHotelList(dataHotel);
+        setViewList(dataView);
+        setSpinner(false);
+      })
+      .catch((error) => {
+        console.log("catch error", error);
+      });
+  }, []);
 
     return (
         <div className={classes.main}>
@@ -118,15 +244,17 @@ function Result(props){
             </div>
             <div className={classes.formInputs}>
                 {hotelSearch && <SearchHotel
+                    HotelParent={HotelParent}
                     hotel={initialSearchValues.hotel}
-                    district={initialSearchValues.district}
+                    district={district}
                     bed={initialSearchValues.bed}
                     from={initialSearchValues.from}
                     to={initialSearchValues.to}
                 />}
                 {viewSearch && <ViewSearch
+                    ViewParent={ViewParent}
                     view={initialSearchValues.view}
-                    district={initialSearchValues.district}
+                    district={district}
                     />}
             </div>
             {
@@ -153,7 +281,6 @@ function Result(props){
             }
         </div>
     );
-
 
 }
 
