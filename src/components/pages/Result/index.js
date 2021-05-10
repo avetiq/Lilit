@@ -142,8 +142,8 @@ function Result({ classes }) {
 
   useEffect(() => {
     const initialHotelFreeRooms = {
-      from: DateUtil.formatDate(initialSearchValues.from),
-      to: DateUtil.formatDate(initialSearchValues.to),
+      from: initialSearchValues.from ? DateUtil.formatDate(initialSearchValues.from) : null,
+      to: initialSearchValues.to ? DateUtil.formatDate(initialSearchValues.to) : null,
       bed: initialSearchValues.bed,
     };
     console.log(initialHotelFreeRooms)

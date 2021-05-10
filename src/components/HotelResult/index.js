@@ -7,6 +7,7 @@ import nameConverter from "../../helpers/nameConverter";
 
 function HotelResult(props) {
   const { classes, info, hotelFreeRooms } = props;
+  console.log(hotelFreeRooms)
   return (
     <div className={classes.main}>
       <div className={classes.headerPart}>
