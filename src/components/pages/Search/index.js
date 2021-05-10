@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import idGenerator from "../../../helpers/idGenerator";
 import styles from "./styles";
 import { withStyles } from "@material-ui/core/styles";
+import DateUtil from '../../../helpers/DateUtil';
 
 function Search(props) {
   const { classes } = props;
@@ -26,14 +27,21 @@ function Search(props) {
   const [view, setView] = React.useState("");
   const [district, setDistrict] = React.useState("");
   const [bedQuantity, setBedQuantity] = React.useState("");
-  const [dateFrom, setDateFrom] = React.useState();
-  const [dateTo, setDateTo] = React.useState();
+  const [dateFrom, setDateFrom] = React.useState(null);
+  const [dateTo, setDateTo] = React.useState(null);
   const [allInputsEmpty, setAllInputsEmpty] = React.useState(true);
   const [hasError, setHasError] = React.useState(false);
-
+  const [datesError, setDatesError] = React.useState('');
   const bedArray = [1, 2, 3, 4, 5];
 
   const handleDateChange = (date, isFirst) => {
+    setDatesError('');
+    if(dateFrom !== null && dateTo !== null){
+      if(DateUtil.dateDifference(dateFrom, dateTo) < 0){
+        setDatesError('Չի կարող սկզբի ամսաթիվը մեծ լինի վերջի ամսաթվից')
+      }
+    }
+    
     if (isFirst) {
       setDateFrom(date);
     } else {
@@ -96,6 +104,7 @@ function Search(props) {
               Լրացրեք հյուրանոցի կամ տեսարժան վայրի անվանում փնտրելու համար
             </p>
           </div>
+          
           <TextField
             variant="outlined"
             fullWidth
@@ -220,11 +229,12 @@ function Search(props) {
                   view,
                   district,
                   bed: bedQuantity,
-                  from: dateFrom ?? "",
-                  to: dateTo ?? "",
+                  from: dateFrom ? DateUtil.formatDate(dateFrom) : "",
+                  to: dateTo ? DateUtil.formatDate(dateTo) : "",
                 }).toString()}`}
               >
                 <Button variant="success">Փնտրել</Button>
+                
               </Link>
             </div>
           )}
