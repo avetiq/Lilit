@@ -32,112 +32,32 @@ function Result({ classes }) {
   const [district, setDistrict] = React.useState(initialSearchValues.district);
 
     const HotelParent = (hotelSearchParams) => {
-        setDistrict(hotelSearchParams.district ? hotelSearchParams.district : '');
-        setSpinner(true);
-        fetch(`/api/Travel?`+ new URLSearchParams({
-            HotelName: hotelSearchParams.hotel,
-            District: hotelSearchParams.district ? hotelSearchParams.district : '',
-            From: hotelSearchParams.dateFrom ? hotelSearchParams.dateFrom : '',
-            To: hotelSearchParams.dateTo ? hotelSearchParams.dateTo : '',
-            BedQuantity: hotelSearchParams.bedQuantity ? parseInt(hotelSearchParams.bedQuantity) : '',
-        }), {
-            method: 'GET',
-            
-        })
-            .then(async (response) => {
-                const res = await response.json();
 
-                if(response.status >=400 && response.status < 600){
-                    if(res.error){
-                        throw res.error;
-                    }
-                    else {
-                        throw new Error('Something went wrong!');
-                    }
-                }
-                return res;
-            })
-            .then((res) =>{
-                const dataHotel: Array<searchResult> = [];
-                const dataView: Array<searchResult> = [];
-                res.forEach(resElement => {
-                    const current = new searchResult();
-                    current.id = resElement.id;
-                    current.name = resElement.name;
-                    current.district = resElement.district;
-                    current.photoSource = resElement.photoSource;
-                    current.longInfo = resElement.longInfo;
-                    current.latitude = resElement.latitude;
-                    current.longitude = resElement.longitude;
-                    if(resElement.isHotel){
-                        dataHotel.push(current);
-                    }else{
-                        dataView.push(current);
-                    }
-                    
-                });
-                
-                setHotelList(dataHotel);
-                setViewList(dataView);
-                setSpinner(false);
-            })
-            .catch((error)=>{
-                console.log('catch error', error);
-            });
+        window.location.assign(`/result?${new URLSearchParams({
+            hotel: hotelSearchParams.hotel,
+            view: '',
+            district: hotelSearchParams.district,
+            bed: hotelSearchParams.bedQuantity ? parseInt(hotelSearchParams.bedQuantity) : '',
+            from: hotelSearchParams.dateFrom ? hotelSearchParams.dateFrom : '',
+            to: hotelSearchParams.dateTo ? hotelSearchParams.dateTo : '',
+          }).toString()}`);
+
+        
     }
 
     const ViewParent = (viewSearchParams) => {
-        setSpinner(true);
-        setDistrict(viewSearchParams.district ? viewSearchParams.district : '');
-
-        fetch(`/api/Travel?`+ new URLSearchParams({
-            
-            ViewName: viewSearchParams.view,
-            District: viewSearchParams.district,
-            }), {
-            method: 'GET',
-            
-        })
-            .then(async (response) => {
-                const res = await response.json();
-
-                if(response.status >=400 && response.status < 600){
-                    if(res.error){
-                        throw res.error;
-                    }
-                    else {
-                        throw new Error('Something went wrong!');
-                    }
-                }
-                return res;
-            })
-            .then((res) =>{
-                const dataHotel: Array<searchResult> = [];
-                const dataView: Array<searchResult> = [];
-                res.forEach(resElement => {
-                    const current = new searchResult();
-                    current.id = resElement.id;
-                    current.name = resElement.name;
-                    current.district = resElement.district;
-                    current.photoSource = resElement.photoSource;
-                    current.longInfo = resElement.longInfo;
-                    current.latitude = resElement.latitude;
-                    current.longitude = resElement.longitude;
-                    if(resElement.isHotel){
-                        dataHotel.push(current);
-                    }else{
-                        dataView.push(current);
-                    }
-                    
-                });
+        
+        window.location.assign(`/result?${new URLSearchParams({
+                  hotel: '',
+                  view: viewSearchParams.view,
+                  district: viewSearchParams.district,
+                  bed: '',
+                  from: '',
+                  to: '',
+                }).toString()}`);
+              
                 
-                setHotelList(dataHotel);
-                setViewList(dataView);
-                setSpinner(false);
-            })
-            .catch((error)=>{
-                console.log('catch error', error);
-            });
+        
     }
 
   useEffect(() => {
