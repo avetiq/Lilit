@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import LogInModel from '../../../models/logIn';
-import {parseCookies, setCookie } from 'nookies'
+import {destroyCookie, parseCookies, setCookie } from 'nookies'
 import PersonalInfoModel from '../../../models/personalinfo';
 import ReservedListModel from '../../../models/reservedList';
 import { validate16Number} from '../../../helpers/validates';
@@ -28,28 +28,76 @@ function PersonalPage(props) {
   const [errorPwd, setErrorPwd] = React.useState('');
   const [errorCardNumber, setErrorCardNumber] = React.useState('');
 
+  const deleteReserve = (id) => {
+    
+      fetch(`/api/Hotel/Order/${id}`, {
+        method: 'DELETE',
+        headers: { 'username': cookies.username },
+        
+      })
+      .then(response => console.log(response))
+      .then(data => console.log(data));
+
+      alert('Ձեր ամրագրումը չեղարկվեց.');
+      window.location.reload();
+    
+  };
+
   const resetPassword = () => {
     setErrorPwd('');
     if(oldPassword.length < 8 || newPassword.length < 8){
       setErrorPwd('Գաղտնաբառ դաշտը պիտի լինի նվազագույնը 8 սիմվոլ:');
       return;
     }
-    // // console.log({
-    // //   oldPassword,
-    // //   newPassword
-    // // })
+
+    
+      fetch('/api/Auth/EditUser', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'username': cookies.username },
+        body: JSON.stringify({ 
+          password: newPassword,
+          oldPassword: oldPassword,
+          city: null,
+          creditCardNumber: null,
+          country: null
+        })
+      })
+      .then(response => {if(response.status >= 400 && response.status < 600){
+        setErrorPwd('Հին գաղտնաբառը սխալ է։');
+      }else{
+        alert('Գաղտնաբառը հաջողությամբ փոփոխվեց։')
+        window.location.reload();
+      }})
+      .catch((e) => {console.log('password error'); })
+
+
   }
 
   const resetOtherInfo = () => {
     setErrorCardNumber('');
-    if(creditCardNumber.length < 16){
-      setErrorCardNumber(' Ձեր բանկային քարտի համարը սխալ է:');
+    if(creditCardNumber.length < 16 && creditCardNumber.length > 0){
+      setErrorCardNumber(' Ձեր բանկային քարտի համարը պետք է լինի 16 նիշ:');
       return;
-    }
-    if(!validate16Number(creditCardNumber)){
-      setErrorCardNumber('Ձեր բանկային քարտի համարը սխալ է, պետք է լինի 16 թիվ:');
-      return;
-    }
+      }
+    
+
+      fetch('/api/Auth/EditUser', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'username': cookies.username },
+        body: JSON.stringify({ 
+          password: null,
+          oldPassword: null,
+          city,
+          creditCardNumber,
+          country,
+        })
+      })
+      .then(response => {if(!(response.status >= 400 && response.status < 600)){
+        alert('Տվյալները հաջողությամբ փոփոխվեցին։')
+        window.location.reload();
+      }})
+      .catch((e) => {console.log('edit error'); })
+    
     // console.log({
     //   creditCardNumber,
     //   country,
@@ -89,8 +137,11 @@ function PersonalPage(props) {
           apiResponseParse.Gender = res[0].gender;
           apiResponseParse.Email = res[0].email;
           apiResponseParse.City = res[0].city;
+          setCity(res[0].city);
           apiResponseParse.CreditCardNumber = res[0].creditCardNumber;
+          setCreditCardNumber(res[0].creditCardNumber);
           apiResponseParse.Country = res[0].country;
+          setCountry(res[0].country);
           setUserInfo(apiResponseParse);
       })
       .catch((error)=>{
@@ -138,6 +189,7 @@ function PersonalPage(props) {
                     current.to = reserve.to;
                     current.allPrice = reserve.allPrice;
                     current.bedQuantity = reserve.bedQuantity;
+                    current.id = reserve.id;
                     resultList.push(current);
                 });
                 
@@ -149,14 +201,72 @@ function PersonalPage(props) {
         });
 
   }, []);
-console.log(reservedList)
-console.log(userInfo)
+
   return (
         <div className={classes.main}>
         
           <div className={classes.editInfo}>
+          <div className={classes.seeInfo}>
+          <p style={{fontSize: 32}}>{userInfo && userInfo.Name + ' ' + userInfo.Surname}</p>
+          <p style={{fontSize: 18}}>Էլ. Փոստ։ {userInfo && userInfo.Email}</p>
+          <p style={{fontSize: 18}}>Անձնագիր։ {userInfo && userInfo.Passportid}</p>
+          </div>
+          
           <h4>Խմբագրել անձնական տյալները</h4>
-          <h4>{userInfo && userInfo.Name + ' ' + userInfo.Surname}</h4>
+            <div className={classes.changeOtherInfo}>
+            <span style={{color: 'red', fontSize: 10}}>{errorCardNumber}</span>
+                  <TextField
+                  variant="outlined"
+                  fullWidth
+                  value={creditCardNumber}
+                  inputProps={{
+                    maxLength: 16,
+                  }}
+                  name="creditCardNumber"
+                  label='Բանկային քարտի համար XXXX XXXX XXXX XXXX'
+                  onChange={(e) => {
+                    const re = /^[0-9\b]+$/;
+                      if (e.target.value === '' || re.test(e.target.value)) {
+                        setCreditCardNumber(e.target.value);
+                      }
+                  } }
+                  className={classes.inputColor}
+                  style={{"marginTop": 12}}
+                />
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  value={city}
+                  inputProps={{
+                    maxLength: 20,
+                  }}
+                  name="city"
+                  label='Քաղաք'
+                  onChange={(e) => setCity(e.target.value)}
+                  className={classes.inputColor}
+                  style={{"marginTop": 12}}
+                />
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  value={country}
+                  inputProps={{
+                    maxLength: 20,
+                  }}
+                  name="country"
+                  label='Երկիր'
+                  onChange={(e) => setCountry(e.target.value)}
+                  className={classes.inputColor}
+                  style={{"marginTop": 12}}
+                />
+                <Button 
+                  style={{margin: '20px auto 0px auto'}}
+                  onClick={resetOtherInfo}
+                  variant="success"
+                >
+                Հաստատել
+                </Button>
+            </div>
             <div className={classes.resetPwd}>
               <h5 style={{paddingTop: 30}}>Փոխել գաղտնաբառը</h5>
               <span style={{color: 'red', fontSize: 10}}>{errorPwd}</span>
@@ -197,55 +307,6 @@ console.log(userInfo)
               Հաստատել
               </Button>
             </div>  
-            <div className={classes.changeOtherInfo}>
-            <span style={{color: 'red', fontSize: 10}}>{errorCardNumber}</span>
-                  <TextField
-                  variant="outlined"
-                  fullWidth
-                  value={creditCardNumber}
-                  inputProps={{
-                    maxLength: 16,
-                  }}
-                  name="creditCardNumber"
-                  label='Բանկային քարտի համար XXXX XXXX XXXX XXXX'
-                  onChange={(e) => setCreditCardNumber(e.target.value)}
-                  className={classes.inputColor}
-                  style={{"marginTop": 12}}
-                />
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  value={city}
-                  inputProps={{
-                    maxLength: 20,
-                  }}
-                  name="city"
-                  label='Քաղաք'
-                  onChange={(e) => setCity(e.target.value)}
-                  className={classes.inputColor}
-                  style={{"marginTop": 12}}
-                />
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  value={country}
-                  inputProps={{
-                    maxLength: 20,
-                  }}
-                  name="country"
-                  label='Երկիր'
-                  onChange={(e) => setCountry(e.target.value)}
-                  className={classes.inputColor}
-                  style={{"marginTop": 12}}
-                />
-                <Button 
-                  style={{margin: '20px auto 0px auto'}}
-                  onClick={resetOtherInfo}
-                  variant="success"
-                >
-                Հաստատել
-                </Button>
-            </div>
           </div>
           <div className={classes.showInfo}>
             <h3 style={{margin: '0 auto', marginBottom: 30}}>Ձեր ամրագրումները</h3>
@@ -253,6 +314,7 @@ console.log(userInfo)
             {reservedList && 
               reservedList.map((res) => {
                 var imgUrl = res.photoSource.split('\\').join('/');
+                
                 return (
                 <div key={idGenerator()} className={classes.oneReserve}>
                   <div className={classes.img} style={{backgroundImage: `url(${imgUrl})`}} />
@@ -263,6 +325,15 @@ console.log(userInfo)
                     <h5>{DateUtil.formatDate(res.from)}-ից մինչև {DateUtil.formatDate(res.to)}</h5>
                     <h6>{`${res.roomType} համար ${res.allPrice}դրամ`}</h6>
                   </div>
+                  <div style={{display: 'flex', alignItems: 'flex-end'}}>
+                      <Button 
+                      onClick={() => {deleteReserve(res.id);}}
+                      variant="primary"
+                      >
+                      Չեղարկել
+                      </Button>
+                  </div>
+                  
                 </div>
                 );
               })
@@ -273,7 +344,7 @@ console.log(userInfo)
              
         </div>
         )
-    
+          
 }
 
 export default withStyles(styles)(PersonalPage);

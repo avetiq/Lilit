@@ -77,6 +77,7 @@ function EditTaskModal(props) {
     alert("Շնորհակալություն, բարեհաջող ամրագրվեց ձեր սենյակը");
     SearchFreeRooms();
     modalClose();
+    window.location.assign('/personal-page');
   };
 
   const handleChangeCreditCard = (event) => {

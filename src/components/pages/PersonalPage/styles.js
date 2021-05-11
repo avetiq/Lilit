@@ -23,8 +23,14 @@ const styles = (theme) => ({
         width: '34%',
     },
     resetPwd: {
-        borderBottom: '1px solid gray', 
+        borderTop: '1px solid gray', 
         paddingBottom: 20,
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column'
+    },
+    seeInfo: {
+        marginBottom: 20,
         display: 'flex',
         justifyContent: 'center',
         flexDirection: 'column'
@@ -32,7 +38,8 @@ const styles = (theme) => ({
     changeOtherInfo: {
         display: 'flex',
         justifyContent: 'center',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        marginBottom: 20
     },
     oneReserve: {
         display: 'flex',
