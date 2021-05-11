@@ -62,7 +62,7 @@ function NavMenu(props) {
               top: 5,
             }}
           >
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
+            <Dropdown.Toggle variant="info" id="dropdown-basic">
               Կարգավորումներ
             </Dropdown.Toggle>
 

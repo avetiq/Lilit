@@ -328,7 +328,7 @@ function PersonalPage(props) {
                   <div style={{display: 'flex', alignItems: 'flex-end'}}>
                       <Button 
                       onClick={() => {deleteReserve(res.id);}}
-                      variant="primary"
+                      variant="warning"
                       >
                       Չեղարկել
                       </Button>

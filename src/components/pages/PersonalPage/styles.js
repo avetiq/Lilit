@@ -4,13 +4,14 @@ const styles = (theme) => ({
         display: 'flex',
         justifyContent: 'space-around',
         paddingTop: 70,
+        
     },
     editInfo: {
         width: '30%',
     },
     showInfo: {
         width: '50%',
-        borderLeft: '1px solid red',
+        borderLeft: '1px solid gray',
         paddingLeft: 52,
         display: 'flex',
         justifyContent: 'center',
