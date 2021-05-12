@@ -4,7 +4,7 @@ const styles = (theme) => ({
         display: 'flex',
         justifyContent: 'space-around',
         paddingTop: 70,
-        
+        background: '#f0f2f5',
     },
     editInfo: {
         width: '30%',

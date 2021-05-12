@@ -11,8 +11,11 @@
 }
 
 .inputColor{
-    background-color: white;
+    background-color: whitesmoke;
     border-radius: 4px;
+}
+.color_input {
+    background: whitesmoke;
 }
 
 .btnDiv {

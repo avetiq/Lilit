@@ -7,9 +7,14 @@ const styles = (theme) => ({
         width: "90%",
       },
     },
+    border: '1px solid #dcdcdc',
+    padding: 20,
+    borderRadius: 4,
+    boxShadow: '2px 5px 20px 2px #dcdcdc',
     display: "flex",
     marginTop: 30,
     flexDirection: "column",
+    backgroundColor: 'whitesmoke'
   },
   headerPart: {
     display: "flex",
