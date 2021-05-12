@@ -12,8 +12,12 @@ const styles = (theme) => ({
     main: {
         display: 'flex',
         alignItems: 'center',
-        marginTop: 10,
+        paddingTop: 10,
         flexDirection: 'column',
+        background: '#f0f2f5',
+        height: 'max-content',
+        minHeight: '100vh',
+        paddingBottom: 60
     },    
     headerLinks: {
         width: '30%',

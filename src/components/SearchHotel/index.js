@@ -59,7 +59,7 @@ function SearchHotel(props) {
               name="hotel"
               label='Հյուրանոցի անվանում'
               onChange={handleChangeName}
-              className={classes.inputColor}
+              className={`${classes.inputColor} ${classes.color_input}` }
               style={{"marginTop": 12}}
             />
             <FormControl variant="outlined" className={classes.formControl} style={{"marginTop": 12}}>
@@ -70,7 +70,7 @@ function SearchHotel(props) {
                 onChange={handleChangeName}
                 label="Ընտրեք տեղերի քանակը"
                 name="bedQuantity"
-                className={classes.inputColor}
+                className={`${classes.inputColor} ${classes.color_input}` }
               >
                 <option aria-label="None" value="" />
                 {bedArray.map((bedNumber) => {
@@ -90,7 +90,7 @@ function SearchHotel(props) {
                 onChange={handleChangeName}
                 label="Ընտրեք մարզը"
                 name="district"
-                className={classes.inputColor}
+                className={`${classes.inputColor} ${classes.color_input}` }
               >
                 <option aria-label="None" value="" />
                 {districts.map((district) => {

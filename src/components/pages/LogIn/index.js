@@ -13,6 +13,7 @@ function LogIn(props) {
   
   const [userName, setUserName] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [error, setError] = React.useState('');
 
   const SubmitLogin = () => {
       const logInInfo = new LogInModel();
@@ -28,12 +29,19 @@ function LogIn(props) {
         })
         .then(response => response.json())
         .then(json => {
-          
-          setCookie(null, 'username', json.username, {
-            maxAge: 30 * 24 * 60 * 60,
-            path: '/',
-          });
+          if(json.token !== ""){
+            setCookie(null, 'username', json.username, {
+              maxAge: 30 * 24 * 60 * 60,
+              path: '/',
+            });
           window.location.assign('/personal-page');
+
+          }else{
+            setUserName('');
+            setPassword('');
+            setError('Սխալ մուտքանուն կամ գաղտնաբառ։')
+          }
+          
         })
         .catch((error)=>{
           console.log('catch error', error);
@@ -94,16 +102,16 @@ function LogIn(props) {
               className={classes.inputColor}
               style={{"marginTop": 12}}
             />
-            
+            <span style={{color: 'red', fontSize: 10}}>{error}</span>
             {<div className={classes.searchBtn}>
-            <Link to={{pathname:`/`,query:{}}}>
+            
               <Button 
                 onClick={SubmitLogin}
                 variant="success"
                 >
                 Մուտք
                 </Button>
-              </Link>
+              
             </div>}
           </Container>  
         </div>

@@ -9,7 +9,12 @@ const styles = (theme) => ({
         },
         display: 'flex',
         marginTop: 30,
-        flexDirection: 'column'
+        flexDirection: 'column',
+        border: '1px solid #dcdcdc',
+        padding: 20,
+        borderRadius: 4,
+        boxShadow: '2px 5px 20px 2px #dcdcdc',
+        backgroundColor: 'whitesmoke'
     },
     headerPart: {
         display: 'flex',
