@@ -64,9 +64,10 @@ function ViewSearch(props) {
             <div className={classes.btnDiv}>
               <Button 
                   onClick={()=>props.ViewParent({view, district})}
-                  variant="success"
+                  style={{backgroundColor: '#3b8053', borderColor: 'transparent'}}
+
                   >
-                  Search
+                  Փնտրել
               </Button>
             </div>  
         </div>  
