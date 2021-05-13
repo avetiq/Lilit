@@ -61,6 +61,7 @@ const styles = () => ({
         display: 'flex',
         justifyContent: 'space-around',
         width: '70%',
+        paddingTop: 20,
         margin: '0 auto'
    }
 

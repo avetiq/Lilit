@@ -260,10 +260,9 @@ function PersonalPage(props) {
                   style={{"marginTop": 12}}
                 />
                 <Button 
-                  style={{margin: '20px auto 0px auto'}}
+                  style={{borderColor: 'transparent',backgroundColor: '#3b8053',margin: '20px auto 0px auto'}}
                   onClick={resetOtherInfo}
-                  variant="success"
-                >
+                  >
                 Հաստատել
                 </Button>
             </div>
@@ -300,9 +299,9 @@ function PersonalPage(props) {
               />
               
               <Button 
-                style={{margin: '20px auto 0px auto'}}
+                style={{borderColor: 'transparent', backgroundColor: '#3b8053',margin: '20px auto 0px auto'}}
                 onClick={resetPassword}
-                variant="success"
+
               >
               Հաստատել
               </Button>

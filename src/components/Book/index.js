@@ -202,10 +202,10 @@ function EditTaskModal(props) {
       </Modal.Body>
       <Modal.Footer>
         <p>{bookModel.money}դրամ </p>
-        <Button onClick={onSave} variant="success">
-          Save
+        <Button onClick={onSave} style={{backgroundColor: '#3b8053',borderColor: 'transparent'}}>
+          Ամրագրել
         </Button>
-        <Button onClick={modalClose}>Cancel</Button>
+        <Button onClick={modalClose}>Չեղարկել</Button>
       </Modal.Footer>
     </Modal>
   );
