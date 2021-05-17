@@ -231,9 +231,12 @@ function Search(props) {
                   bed: bedQuantity,
                   from: dateFrom ? DateUtil.formatDate(dateFrom) : "",
                   to: dateTo ? DateUtil.formatDate(dateTo) : "",
+                  index: 0
                 }).toString()}`}
               >
-                <Button variant="success">Փնտրել</Button>
+                <Button 
+                style={{backgroundColor: '#3b8053', borderColor: 'transparent'}}
+                >Փնտրել</Button>
                 
               </Link>
             </div>

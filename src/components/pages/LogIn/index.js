@@ -107,7 +107,8 @@ function LogIn(props) {
             
               <Button 
                 onClick={SubmitLogin}
-                variant="success"
+                style={{backgroundColor: '#3b8053', borderColor: 'transparent'}}
+
                 >
                 Մուտք
                 </Button>

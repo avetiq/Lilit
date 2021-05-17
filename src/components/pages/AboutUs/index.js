@@ -41,35 +41,8 @@ function AboutUs(props) {
             />
           </div>
         </div>
-        <div className={classes.ourCars}>
-          <h4>Մեր կողմից տրամադրվող ավտոմեքենաները</h4>
-          <div className={classes.row}>
-            <div className={classes.car}>
-              <h5>Mersedes S class</h5>
-              <h5>100.000Դ</h5>
-              <div
-                className={classes.image}
-                style={{ backgroundImage: "url(../../../photos/sClass.jpg)" }}
-              />
-            </div>
-            <div className={classes.car}>
-              <h5>Ferrari 458 Italia</h5>
-              <h5>150.000Դ</h5>
-              <div
-                className={classes.image}
-                style={{ backgroundImage: "url(../../../photos/bently.jpg)" }}
-              />
-            </div>
-            <div className={classes.car}>
-              <h5>Mersedes sprinter</h5>
-              <h5>120.000Դ</h5>
-              <div
-                className={classes.image}
-                style={{ backgroundImage: "url(../../../photos/sprinter.jpg)" }}
-              />
-            </div>
-          </div>
-        </div>
+        
+       
       </div>
       <div className={classes.videoWrapper}>
         <div className={classes.video}>

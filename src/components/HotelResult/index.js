@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import { BrowserView, MobileView } from "react-device-detect";
 import nameConverter from "../../helpers/nameConverter";
+import { Button } from "react-bootstrap";
 
 function HotelResult(props) {
   const { classes, info, hotelFreeRooms } = props;
@@ -24,7 +25,7 @@ function HotelResult(props) {
               },
             }}
           >
-            <h4 style={{ fontSize: "1.3rem" }}>{nameConverter(info.name)}</h4>
+            <h4 style={{ fontSize: "1.3rem" }}>{info.name.indexOf("(") > 0 ? nameConverter(info.name) : info.name}</h4>
           </Link>
         </div>
       </div>
@@ -54,6 +55,25 @@ function HotelResult(props) {
             </p>
           </MobileView>
         </div>
+      </div>
+      <div style={{display: 'flex', flexDirection: 'row-reverse'}}>
+        <Button style={{backgroundColor: '#3b8053', borderColor: 'transparent'}} >
+          <Link
+          style={{textDecoration: 'none', color: 'white'}}
+          to={{
+            pathname: `/result/hotel`,
+            query: {
+              id: info.id,
+              name: info.name,
+              bed: hotelFreeRooms.bed,
+              to: hotelFreeRooms.to,
+              from: hotelFreeRooms.from,
+            },
+          }}
+        >
+          Դիտել 
+          </Link>
+        </Button>
       </div>
     </div>
   );

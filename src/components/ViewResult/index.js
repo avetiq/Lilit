@@ -3,7 +3,7 @@ import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import {Link} from 'react-router-dom';
 import { BrowserView, MobileView } from "react-device-detect";
-
+import { Button } from "react-bootstrap";
 
 function ViewResult(props){
     
@@ -32,7 +32,21 @@ function ViewResult(props){
                         </MobileView>
                 </div>
             </div>
-            
+            <div style={{display: 'flex', flexDirection: 'row-reverse'}}>
+                <Button  style={{backgroundColor: '#3b8053', borderColor: 'transparent'}}>
+                    <Link
+                    style={{textDecoration: 'none', color: 'white'}}
+                    to={{
+                        pathname: `/result/view`,
+                        query: {
+                            id:info.id, name:info.name
+                        },
+                    }}
+                    >
+                Դիտել
+                    </Link>
+                </Button>
+            </div>
         </div>
     );
 

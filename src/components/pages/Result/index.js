@@ -15,23 +15,20 @@ import Spinner from "../../Spinner";
 
 
 function Result({ classes }) {
-  
-  const [hotelSearch, setHotelSearch] = useState(true);
-  const [viewSearch, setViewSearch] = useState(false);
+  const { search } = useLocation();
+
+  const initialSearchValues = objectFromSearchParams(search);
+console.log(initialSearchValues.index)
+  const [hotelSearch, setHotelSearch] = useState(initialSearchValues.index === '0');
+  const [viewSearch, setViewSearch] = useState(initialSearchValues.index !== '0');
   const [hotelList, setHotelList] = useState();
   const [viewList, setViewList] = useState();
   const [hotelFreeRooms, setHotelFreeRooms] = useState();
   const [spinner, setSpinner] = useState(true);
-
-  const { search } = useLocation();
-
-  const initialSearchValues = objectFromSearchParams(search);
-
-  console.log(initialSearchValues);
-
+console.log(hotelSearch)
   const [district, setDistrict] = React.useState(initialSearchValues.district);
 
-    const HotelParent = (hotelSearchParams) => {
+    const HotelParent = (hotelSearchParams) => { 
 
         window.location.assign(`/result?${new URLSearchParams({
             hotel: hotelSearchParams.hotel,
@@ -40,6 +37,7 @@ function Result({ classes }) {
             bed: hotelSearchParams.bedQuantity ? parseInt(hotelSearchParams.bedQuantity) : '',
             from: hotelSearchParams.dateFrom ? hotelSearchParams.dateFrom : '',
             to: hotelSearchParams.dateTo ? hotelSearchParams.dateTo : '',
+            index: 0
           }).toString()}`);
 
         
@@ -54,6 +52,7 @@ function Result({ classes }) {
                   bed: '',
                   from: '',
                   to: '',
+                  index: 1
                 }).toString()}`);
               
                 
@@ -134,7 +133,7 @@ function Result({ classes }) {
             <div className={classes.headerLinks}>
                 <div className={classes.headerLinksColor}>
                     <Button
-                    variant="success"
+                    style={{backgroundColor: '#3b8053', borderColor: 'transparent'}}
                     className={`${classes.buttonPadding} ${hotelSearch ? classes.buttonHeightMax : classes.buttonHeightMin}`}
                     onClick={()=> {
                         if(!hotelSearch){
@@ -148,7 +147,8 @@ function Result({ classes }) {
                 <div className={classes.headerLinksColor}>
                     <Button
                     className={`${classes.buttonPadding} ${viewSearch ? classes.buttonHeightMax : classes.buttonHeightMin}`}
-                    variant="success"
+                    style={{backgroundColor: '#3b8053', borderColor: 'transparent' }}
+
                     onClick={()=> {
                         if(!viewSearch){
                             setViewSearch(!viewSearch); setHotelSearch(!hotelSearch);
@@ -185,13 +185,13 @@ function Result({ classes }) {
                 )
             }
             {
-                viewSearch && viewList &&
+                viewSearch && viewList && 
                 viewList.map((el) => 
                     <ViewResult
                         key={idGenerator()}
                         info={el}
-                    />
-                )
+                    />                  
+                ) 
             }
             {
                 spinner && <Spinner />

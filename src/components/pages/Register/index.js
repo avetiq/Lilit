@@ -285,7 +285,8 @@ function Register(props) {
             
               <Button 
                 onClick={SubmitRegistration}
-                variant="success"
+                style={{backgroundColor: '#3b8053', borderColor: 'transparent'}}
+                
                 >
                 Գրանցվել
                 </Button>

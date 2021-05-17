@@ -145,9 +145,10 @@ function SearchHotel(props) {
                       dateFrom
                     });
                   }}
-                  variant="success"
+                  style={{backgroundColor: '#3b8053', borderColor: 'transparent'}}
+
                   >
-                  Search
+                  Փնտրել
               </Button>
             </div>  
         </div>  

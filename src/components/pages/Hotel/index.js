@@ -398,9 +398,8 @@ function Hotel(props){
                 <div style={{margin: '20px auto 0px auto', display: 'flex', flexDirection: 'column'}}>
                 {errorDates && <span style={{fontSize: 10, color: 'red', display: 'block'}}>{errorDates}</span>}
                     <Button 
-                    style={{width: 100, margin: '0 auto'}}
+                    style={{width: 100, margin: '0 auto', backgroundColor: '#3b8053', borderColor: 'transparent'}}
                     onClick={SearchFreeRooms}
-                    variant="success"
                     >
                     Փնտրել
                     </Button>
@@ -418,7 +417,7 @@ function Hotel(props){
                             
                             <div>
                                 <Button 
-                                style={{right: 0}}
+                                style={{right: 0, backgroundColor: '#3b8053', borderColor: 'transparent'}}
                                 disabled={(dateParams === false) || (isLogedIn === false)}
                                 onClick={() =>{ 
                                     if(DateUtil.dateDifference(bookInfo.from, bookInfo.to) < 0){
@@ -428,7 +427,6 @@ function Hotel(props){
                                     submitBook(room.money, room.bed);
                                 }
                                 }
-                                variant="success"
                                 >
                                 Ամրագրել
                                 </Button>
