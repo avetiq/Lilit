@@ -36,7 +36,8 @@ const styles = (theme) => ({
     },
     linkBackground: {
         color: 'white',
-        fontSize: 21
+        fontSize: 21,
+        width: '200px'
     },
     buttonPadding: {
         padding: 0,

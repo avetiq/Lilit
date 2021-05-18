@@ -20,8 +20,8 @@ const styles = (theme) => ({
     img: {
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
-        height: 170,
-        width: '34%',
+        height: 190,
+        width: 300,
     },
     resetPwd: {
         borderTop: '1px solid gray', 
@@ -49,7 +49,8 @@ const styles = (theme) => ({
         padding: 15
     },
     infoMoney: {
-        marginLeft: 30
+        marginLeft: 30,
+        width: 424
     }
 
 });

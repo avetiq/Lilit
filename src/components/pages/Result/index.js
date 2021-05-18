@@ -71,8 +71,8 @@ console.log(hotelSearch)
     fetch(
       `/api/Travel?` +
         new URLSearchParams({
-          HotelName: initialSearchValues.hotel,
-          ViewName: initialSearchValues.view,
+          HotelName: initialSearchValues.hotel.replaceAll('+',' '),
+          ViewName: initialSearchValues.view.replaceAll('+',' '),
           District: initialSearchValues.district,
           From: initialSearchValues.from
             ? DateUtil.formatDate(initialSearchValues.from)
@@ -93,9 +93,11 @@ console.log(hotelSearch)
 
         if (response.status >= 400 && response.status < 600) {
           if (res.error) {
-            throw res.error;
+                setSpinner(false);
+                throw res.error;
           } else {
-            throw new Error("Something went wrong!");
+              setSpinner(false);
+              throw new Error("Something went wrong!");
           }
         }
         return res;
@@ -124,6 +126,7 @@ console.log(hotelSearch)
         setSpinner(false);
       })
       .catch((error) => {
+        setSpinner(false);
         console.log("catch error", error);
       });
   }, []);

@@ -16,6 +16,42 @@ function AboutUs(props) {
     <img src="https://picsum.photos/800/304/?random" alt="5" />,
   ];
 
+  const [pageInfo, setPageInfo] = React.useState({});
+
+  React.useEffect(()=>{
+      fetch(
+          `/api/Auth/ArmTravelInfo`,
+          {
+            method: "GET",
+          }
+        )
+          .then(async (response) => {
+            const res = await response.json();
+    
+            if (response.status >= 400 && response.status < 600) {
+              if (res.error) {
+                    throw res.error;
+              } else {
+                  throw new Error("Something went wrong!");
+              }
+            }
+            return res;
+          })
+          .then((res) => {
+            setPageInfo({
+              address: res.address,
+              email: res.email,
+              info: res.info,
+              logo: res.logo,
+              phone: res.phone
+            });
+          })
+          .catch((error) => {
+            console.log("catch error", error);
+          });
+      }, []);
+    
+
   return (
     <div className={classes.main} style={{ backgroundColor: "#f0f2f5" }}>
       <div className={classes.slide} >
@@ -25,13 +61,7 @@ function AboutUs(props) {
         <h4>Տարվա լավագույն շրջագայության կազմակերպիչ</h4>
         <div className={classes.textAndMap}>
           <div className={classes.text}>
-            Մեր ընկերությունը հիմնադրվել է 2000 թվականին և մինչ օրս գործում է
-            հայկական զբոսաշրջության շուկայում։ Մեր գործակալությունը մասնագիտացած
-            է Հայաստանում։ Մեր կայքի միջոցով կարող եք գտնել ձեզ հարմար
-            հյուրանոցները, ամրագրել դրանք, ինչպես նաև տեսնել թե ինչ մոտակա
-            տեսարժան վայրեր կան, որոնք կարող եք այցելել ձեր շրջագայության
-            ընթացքում։ 2021 թվականին ճանաչվեցինք տարվա լավագույն շրջագայության
-            կազմակերպիչ ողջ տարածաշրջանում և համարվում ենք ոլորտի առաջատար։
+            {pageInfo.info}
           </div>
           <div>
             <LocationMap

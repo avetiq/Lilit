@@ -62,11 +62,11 @@ function NavMenu(props) {
               top: 5,
             }}
           >
-            <Dropdown.Toggle variant="info" id="dropdown-basic">
+            <Dropdown.Toggle variant="info" id="dropdown-basic" style={{background: '#3b8053' , border: '#3b8053'}}>
               Կարգավորումներ
             </Dropdown.Toggle>
 
-            <Dropdown.Menu>
+            <Dropdown.Menu style={{color: '#3b8053'}} >
               {getRightPartName() === "Մուտք" ? (
                 <Dropdown.Item className={classes.signUp}>
                   <NavLink to="/log-in" exact className={classes.signUp}>
@@ -75,12 +75,12 @@ function NavMenu(props) {
                 </Dropdown.Item>
               ) : (
                 <>
-                  <Dropdown.Item>
-                    <NavLink to="/personal-page" exact>
+                  <Dropdown.Item style={{color: '#3b8053'}} >
+                    <NavLink to="/personal-page" exact >
                       Անձնական էջ
                     </NavLink>
                   </Dropdown.Item>
-                  <Dropdown.Item>
+                  <Dropdown.Item style={{color: '#3b8053'}}>
                     <Button onClick={logOut}>Ելք</Button>
                   </Dropdown.Item>
                 </>

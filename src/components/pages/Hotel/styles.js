@@ -51,6 +51,10 @@ const styles = (theme) => ({
   },
   freeRooms: {
     marginBottom: 100,
+    width: 600,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   freeRoom: {
     width: "100%",

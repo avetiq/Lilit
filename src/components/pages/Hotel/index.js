@@ -359,9 +359,9 @@ function Hotel(props){
                 
             </div>
             <div className={classes.freeRooms}>
-                <h4>Հյուրանոցում առկա ազատ համարներ</h4>
+                <h4 style={{color: 'cadetblue'}} >Հյուրանոցում առկա ազատ համարներ</h4>
                 <h6 >Ամրագրել կարող եք միայն մուտք գործելուց հետո</h6>
-            <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '30px auto'}}>
+            <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between',width: '584px', margin: '30px auto'}}>
                 <div className={classes.dates}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <KeyboardDatePicker
@@ -370,7 +370,7 @@ function Hotel(props){
                     variant="inline"
                     format="dd/MM/yyyy"
                     label="Սկսած"
-                    value={bookInfo.from}
+                    value={bookInfo.from !== null ? DateUtil.addDays(bookInfo.from, 0) : null}
                     name="dateFrom"
                     onChange={(date)=>handleDateChange(date, true)}
                     KeyboardButtonProps={{
@@ -387,7 +387,7 @@ function Hotel(props){
                     format="dd/MM/yyyy"
                     label="Մինչև"
                     name="dateTo"
-                    value={bookInfo.to}
+                    value={bookInfo.to !== null ? DateUtil.addDays(bookInfo.to, 0) : null}
                     onChange={(date)=>handleDateChange(date, false)}
                     KeyboardButtonProps={{
                         'aria-label': 'change date',
@@ -411,8 +411,8 @@ function Hotel(props){
                     return(
                         <div key={`${room.bed}s${index}`} className={classes.freeRoom}>    
                             <div style={{alignItems: 'center', display: 'flex', }}>
-                                <div style={{backgroundImage: 'url(../../../photos/ashot.jpg)', marginRight: 20}} className={classes.bedImg}/>
-                                    {room.bed} սենյակ {room.money}AMD, {room.roomType}
+                                <div style={{backgroundImage: 'url(../../../photos/bed.png)', marginRight: 20}} className={classes.bedImg}/> x 
+                                    {room.bed}   {room.money}AMD, {room.roomType} սենյակ 
                             </div>
                             
                             <div>

@@ -33,7 +33,7 @@ function ViewSearch(props) {
             <TextField
               variant="outlined"
               fullWidth
-              value={view}
+              value={view.replaceAll('+', ' ')}
               name="view"
               label='Տեսարժան վայր'
               onChange={handleChangeName}

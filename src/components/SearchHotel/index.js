@@ -55,7 +55,7 @@ function SearchHotel(props) {
             <TextField
               variant="outlined"
               fullWidth
-              value={hotel}
+              value={hotel.replaceAll('+', ' ')}
               name="hotel"
               label='Հյուրանոցի անվանում'
               onChange={handleChangeName}
@@ -110,7 +110,7 @@ function SearchHotel(props) {
                         variant="inline"
                         format="dd/MM/yyyy"
                         label="Սկսած"
-                        value={dateFrom}
+                        value={dateFrom !== null ? DateUtil.addDays(dateFrom, 0) : null}
                         name="dateFrom"
                         onChange={(date)=>handleDateChange(date, true)}
                         KeyboardButtonProps={{
@@ -126,7 +126,7 @@ function SearchHotel(props) {
                         format="dd/MM/yyyy"
                         label="Մինչև"
                         name="dateTo"
-                        value={dateTo}
+                        value={dateTo !== null ? DateUtil.addDays(dateTo, 0) : null}
                         onChange={(date)=>handleDateChange(date, false)}
                         KeyboardButtonProps={{
                         'aria-label': 'change date',

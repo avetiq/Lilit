@@ -207,7 +207,7 @@ function PersonalPage(props) {
         
           <div className={classes.editInfo}>
           <div className={classes.seeInfo}>
-          <p style={{fontSize: 32}}>{userInfo && userInfo.Name + ' ' + userInfo.Surname}</p>
+          <p style={{fontSize: 32, color: '#3b8053'}}>{userInfo && userInfo.Name + ' ' + userInfo.Surname}</p>
           <p style={{fontSize: 18}}>Էլ. Փոստ։ {userInfo && userInfo.Email}</p>
           <p style={{fontSize: 18}}>Անձնագիր։ {userInfo && userInfo.Passportid}</p>
           </div>
@@ -308,7 +308,7 @@ function PersonalPage(props) {
             </div>  
           </div>
           <div className={classes.showInfo}>
-            <h3 style={{margin: '0 auto', marginBottom: 30}}>Ձեր ամրագրումները</h3>
+            <h3 style={{margin: '0 auto', marginBottom: 30, color: '#3b8053'}}>Ձեր ամրագրումները</h3>
             <div className={classes.reservedList}>
             {reservedList && 
               reservedList.map((res) => {

@@ -175,7 +175,7 @@ function EditTaskModal(props) {
               format="dd/MM/yyyy"
               label="Սկսած"
               disabled
-              value={bookInfo.from}
+              value={DateUtil.addDays(bookInfo.from, 0)}
               name="dateFrom"
               KeyboardButtonProps={{
                 "aria-label": "change date",
@@ -192,7 +192,7 @@ function EditTaskModal(props) {
               label="Մինչև"
               disabled
               name="dateTo"
-              value={bookInfo.to}
+              value={DateUtil.addDays(bookInfo.to)}
               KeyboardButtonProps={{
                 "aria-label": "change date",
               }}
